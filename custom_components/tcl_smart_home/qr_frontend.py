@@ -9,7 +9,7 @@ from homeassistant.core import HomeAssistant
 
 from .const import DOMAIN
 
-_URL = "/tcl_smart_home/qr-dialog-0.3.0.js"
+_URL = "/tcl_smart_home/qr-dialog-1.0.0.js"
 _TASK_KEY = f"{DOMAIN}_qr_frontend"
 
 

@@ -48,6 +48,36 @@ def property_name(prop: Mapping[str, Any], language: str = "en") -> str:
     return words[:1].upper() + words[1:] if words and words.isascii() else "Property"
 
 
+def coerce_control_value(prop: Mapping[str, Any], value: Any) -> Any:
+    """Turn a text-form service value into the type the property expects.
+
+    The administrator action uses a text field. Enum codes stay strings so a
+    value such as 007 is not rewritten as the integer 7.
+    """
+    if not isinstance(value, str):
+        return value
+    kind = property_type(prop)
+    text = value.strip()
+    if kind in ("bool", "boolean"):
+        lowered = text.lower()
+        if lowered in {"1", "true", "on"}:
+            return True
+        if lowered in {"0", "false", "off"}:
+            return False
+        return value
+    if kind in ("int", "integer"):
+        try:
+            return int(text)
+        except ValueError:
+            return value
+    if kind in ("float", "double", "number"):
+        try:
+            return float(text)
+        except ValueError:
+            return value
+    return value
+
+
 def property_type(prop: Mapping[str, Any]) -> str:
     data_type = prop.get("dataType")
     if isinstance(data_type, Mapping):

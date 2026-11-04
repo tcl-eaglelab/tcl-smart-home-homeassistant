@@ -3,7 +3,7 @@ from __future__ import annotations
 import asyncio
 import logging
 import time
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import UTC, datetime, timedelta
 from typing import Any
 
@@ -27,6 +27,7 @@ from .const import (
     MODEL_REFRESH_INTERVAL_SECONDS,
 )
 from .model import (
+    coerce_control_value,
     model_fingerprint,
     model_properties,
     property_identifier,
@@ -74,6 +75,7 @@ class TCLCoordinator(DataUpdateCoordinator[dict[str, TCLDeviceData]]):
         self._known_device_ids: set[str] | None = None
         self._known_model_hashes: dict[str, str] = {}
         self._model_fetched_at: dict[str, float] = {}
+        self._model_fetches: dict[str, asyncio.Task[dict[str, Any]]] = {}
         self._write_lock = asyncio.Lock()
         interval = int(
             entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL_SECONDS)
@@ -220,6 +222,24 @@ class TCLCoordinator(DataUpdateCoordinator[dict[str, TCLDeviceData]]):
         )
 
     async def _async_get_model(self, product_key: str) -> dict[str, Any]:
+        """Fetch one model per product key, even when many devices share it."""
+        if not self._should_refresh_model(product_key):
+            return self._model_cache.get(product_key, {})
+        pending = self._model_fetches.get(product_key)
+        if pending is None:
+            pending = asyncio.create_task(self._async_fetch_model(product_key))
+            self._model_fetches[product_key] = pending
+
+            def _clear(
+                task: asyncio.Task[dict[str, Any]], key: str = product_key
+            ) -> None:
+                if self._model_fetches.get(key) is task:
+                    self._model_fetches.pop(key, None)
+
+            pending.add_done_callback(_clear)
+        return await pending
+
+    async def _async_fetch_model(self, product_key: str) -> dict[str, Any]:
         try:
             self._model_cache[product_key] = await self.api.async_get_model(product_key)
             self._model_fetched_at[product_key] = time.monotonic()
@@ -231,6 +251,34 @@ class TCLCoordinator(DataUpdateCoordinator[dict[str, TCLDeviceData]]):
                 self._model_cache[product_key] = {}
             self._model_fetched_at[product_key] = time.monotonic()
         return self._model_cache[product_key]
+
+    async def async_refresh_device(self, device_id: str) -> None:
+        """Reload one device after a command without polling the whole account."""
+        current = dict(self.data or {})
+        item = current.get(device_id)
+        if item is None:
+            return
+        try:
+            status = await self.api.async_get_status(device_id)
+        except TCLAuthError:
+            raise
+        except TCLApiError as err:
+            _LOGGER.warning(
+                "Unable to refresh one TCL device after a command (%s)",
+                type(err).__name__,
+            )
+            return
+        updated = replace(
+            item,
+            status=status,
+            status_ok=True,
+            status_error=None,
+            status_failures=0,
+            last_status_success=datetime.now(UTC),
+        )
+        current[device_id] = updated
+        self._device_cache = current
+        self.async_set_updated_data(current)
 
     async def _async_persist_tokens(self) -> None:
         if not self.api.tokens_changed:
@@ -292,7 +340,10 @@ class TCLCoordinator(DataUpdateCoordinator[dict[str, TCLDeviceData]]):
 
                 try:
                     value = validate_write(
-                        device.device, device.model, property_def, value
+                        device.device,
+                        device.model,
+                        property_def,
+                        coerce_control_value(property_def, value),
                     )
                 except ValueError as err:
                     raise HomeAssistantError(
@@ -303,7 +354,7 @@ class TCLCoordinator(DataUpdateCoordinator[dict[str, TCLDeviceData]]):
                     device_id,
                     {property_name: value},
                 )
-                await self.async_request_refresh()
+                await self.async_refresh_device(device_id)
             except TCLAuthError as err:
                 raise HomeAssistantError(
                     translation_domain=DOMAIN,

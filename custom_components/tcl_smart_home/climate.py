@@ -8,6 +8,7 @@ from homeassistant.components.climate import (
     HVACMode,
 )
 from homeassistant.const import ATTR_TEMPERATURE, UnitOfTemperature
+from homeassistant.exceptions import HomeAssistantError
 
 from .capabilities import climate_property, has_climate
 from .coordinator import TCLCoordinator
@@ -96,7 +97,6 @@ class TCLClimate(TCLDeviceEntity, ClimateEntity):
             self._properties,
             "currentTemperature",
             "indoorTemperature",
-            contains=("currenttemperature", "indoortemperature"),
         )
         return self._number(prop)
 
@@ -126,7 +126,7 @@ class TCLClimate(TCLDeviceEntity, ClimateEntity):
 
     async def async_set_hvac_mode(self, hvac_mode: HVACMode) -> None:
         if hvac_mode not in self.hvac_modes:
-            raise ValueError("Unsupported HVAC mode")
+            raise HomeAssistantError("Unsupported HVAC mode")
         if self._power:
             await self.async_set_property(
                 property_identifier(self._power),

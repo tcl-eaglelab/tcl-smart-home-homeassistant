@@ -1,6 +1,0 @@
-aiohttp
-black
-ruff
-pytest
-pytest-asyncio
-voluptuous

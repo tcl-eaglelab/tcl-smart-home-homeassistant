@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![HA Integration](https://img.shields.io/badge/Home%20Assistant-Custom%20Integration-blue.svg)](https://www.home-assistant.io/)
-[![Version](https://img.shields.io/badge/version-0.3.3-green.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.0.0-green.svg)](CHANGELOG.md)
 
 A single Home Assistant integration for TCL accounts in **mainland China** and **overseas regions**. The integration keeps one domain (`tcl_smart_home`) while selecting the account-center, IoT protocol, QR authorization, request headers, and timezone from the country chosen during setup.
 
@@ -16,7 +16,7 @@ A single Home Assistant integration for TCL accounts in **mainland China** and *
 | **Washer-dryer** | All washing controls + drying program, start/pause dry, dry level | Drying status, remaining time |
 | **Door lock** | Electronic deadlock, voice volume, chime volume, loitering alert | Door status, battery levels, lock state |
 
-Capability discovery is **fail-closed**: only reviewed product/schema pairs can write. Unrecognised properties never become controls merely because the cloud marks them writable. See [control scope](docs/CONTROLS-0.3.2.md) and [capability profiles](docs/CAPABILITIES-0.3.0.md).
+Capability discovery is **fail-closed**: only reviewed product/schema pairs can write. Unrecognised properties never become controls merely because the cloud marks them writable.
 
 ## Installation
 
@@ -91,33 +91,6 @@ Overseas countries are mapped to the SG, FR, US, or BR service region from the b
 
 The default polling interval is **30 seconds**. Change it from **Settings → Devices & services → TCL Smart Home → Configure**. Valid range is 15–300 seconds. The backend refreshes the device list and each device's properties. Thing Models are cached for 15 minutes. Saving a changed interval reloads the integration automatically.
 
-## Upgrading from previous versions
-
-### From 0.2.x (bundled secrets)
-
-**Application secrets are no longer bundled.** Configure local credentials before upgrading. The optional migration helper can extract credentials from an old installation:
-
-```text
-python tools/migrate_credentials.py /path/to/ha/config          # dry run
-python tools/migrate_credentials.py /path/to/ha/config --apply   # backup + migrate
-```
-
-Previously distributed packages still contain the old credentials and may require vendor rotation.
-
-### From 0.3.0+
-
-Existing domestic config entries are upgraded in place. Tokens and supported entity IDs are retained. Retired/unsafe/duplicate entities are disabled without deleting registry/history. Review dependent automations.
-
-### From the overseas package (`tcl_smart_home_overseas`)
-
-The old overseas package used a different domain and cannot be silently converted. Migration steps:
-
-1. Install the unified package while keeping the old overseas integration temporarily.
-2. Add **TCL Smart Home** and choose the same account country.
-3. Complete QR authorization and confirm devices/entities are present.
-4. Update automations and dashboards to the new entity IDs.
-5. Remove the old overseas integration after verifying the new entry.
-
 ## Security
 
 - **No bundled secrets**: Application credentials are read from local HA YAML only
@@ -128,27 +101,13 @@ The old overseas package used a different domain and cannot be silently converte
 - **Redacted diagnostics**: Only structural counts and boolean status are exported
 - **No remote unlock**: Door lock controls are limited to settings; `openDoor` is not implemented
 
-See [the security audit](docs/AUDIT-0.3.3.md) and [security policy](SECURITY.md) for details and remaining risks.
-
-## Development
-
-```bash
-python -m pip install -r requirements-test.txt
-python -m compileall -q custom_components
-python -m pytest -q
-black --check custom_components tests
-ruff check custom_components tests tools
-```
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+See [the security policy](SECURITY.md) for the release boundary.
 
 ## Documentation
 
 - [Architecture](docs/ARCHITECTURE.md)
-- [Control scope](docs/CONTROLS-0.3.2.md)
-- [Capability profiles](docs/CAPABILITIES-0.3.0.md)
-- [Security audit](docs/AUDIT-0.3.3.md)
 - [Changelog](CHANGELOG.md)
+- [Contributing](CONTRIBUTING.md)
 
 ## License
 

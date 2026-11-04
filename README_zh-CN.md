@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![HA Integration](https://img.shields.io/badge/Home%20Assistant-Custom%20Integration-blue.svg)](https://www.home-assistant.io/)
-[![Version](https://img.shields.io/badge/version-0.3.3-green.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.0.0-green.svg)](CHANGELOG.md)
 
 一个同时支持**中国大陆**和**海外** TCL 账号的 Home Assistant 集成。统一域名为 `tcl_smart_home`，根据用户选择的国家自动匹配账号中心、IoT 协议、扫码方式、请求头和时区。
 
@@ -16,7 +16,7 @@
 | **洗烘一体机** | 上述洗涤控制 + 烘干程序、启动/暂停烘干、烘干程度 | 烘干状态、剩余时间 |
 | **门锁** | 电子反锁、语音音量、门铃音量、逗留提醒 | 门状态、电量、锁舌状态 |
 
-能力发现采用**失败即关闭**策略：只有审核过的产品/属性组合才能写入。未识别的属性不会因为云端标记为可写就自动变成控制项。详见[控制清单](docs/CONTROLS-0.3.2.md)和[能力配置](docs/CAPABILITIES-0.3.0.md)。
+能力发现采用**失败即关闭**策略：只有审核过的产品/属性组合才能写入。未识别的属性不会因为云端标记为可写就自动变成控制项。
 
 ## 安装
 
@@ -91,32 +91,6 @@ tcl_ha_overseas_client_secret: "你的海外应用密钥"
 
 默认轮询间隔 **30 秒**，可在 **设置 → 设备与服务 → TCL Smart Home → 配置** 中修改，范围 15–300 秒。物模型缓存 15 分钟。修改间隔后自动重载集成。
 
-## 从旧版升级
-
-### 从 0.2.x（含内置密钥）
-
-**安装包不再包含应用密钥。** 升级前需配置本机凭据。可用迁移工具从旧版提取：
-
-```text
-python tools/migrate_credentials.py "你的HA配置目录"          # 只检查
-python tools/migrate_credentials.py "你的HA配置目录" --apply   # 备份并迁移
-```
-
-旧版安装包仍含旧密钥，若曾公开需由凭据负责人评估并轮换。
-
-### 从 0.3.0+
-
-已有国内配置条目原地升级，令牌和实体 ID 保留。停用的旧实体记录和历史不删除。请检查相关自动化。
-
-### 从旧海外版（`tcl_smart_home_overseas`）
-
-旧海外版使用不同域名，无法自动转换。迁移步骤：
-
-1. 暂时保留旧海外插件，同时安装统一版。
-2. 添加 **TCL Smart Home**，选择同一个国家并重新扫码。
-3. 确认新设备和实体正常出现，更新自动化中的实体 ID。
-4. 验证无误后删除旧海外集成。
-
 ## 安全
 
 - **不含密钥**：应用凭据仅从本机 YAML 读取
@@ -127,27 +101,13 @@ python tools/migrate_credentials.py "你的HA配置目录" --apply   # 备份并
 - **诊断脱敏**：仅导出结构计数和布尔状态
 - **无远程开门**：门锁仅开放设置，`openDoor` 未接入
 
-详见[安全审查](docs/AUDIT-0.3.3.md)和[安全策略](SECURITY.md)。
-
-## 开发
-
-```bash
-python -m pip install -r requirements-test.txt
-python -m compileall -q custom_components
-python -m pytest -q
-black --check custom_components tests
-ruff check custom_components tests tools
-```
-
-详见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+详见[安全策略](SECURITY.md)。
 
 ## 文档
 
 - [架构](docs/ARCHITECTURE.md)
-- [控制清单](docs/CONTROLS-0.3.2.md)
-- [能力配置](docs/CAPABILITIES-0.3.0.md)
-- [安全审查](docs/AUDIT-0.3.3.md)
 - [更新日志](CHANGELOG.md)
+- [贡献说明](CONTRIBUTING.md)
 
 ## 许可
 

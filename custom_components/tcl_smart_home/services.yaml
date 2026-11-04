@@ -16,7 +16,7 @@ set_property:
         text:
     value:
       name: Value
-      description: Property value. Boolean properties are encoded as 0 or 1 for TCL.
+      description: Property value. Use 0 or 1 for a boolean, a number for a range, or the option code for an enum.
       required: true
       selector:
-        object:
+        text:

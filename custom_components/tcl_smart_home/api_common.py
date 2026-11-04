@@ -215,10 +215,26 @@ def is_success(response: Mapping[str, Any]) -> bool:
     return response.get("success") is True or code in (1, "1", 200, "200")
 
 
+# Business codes observed from the account center. Matching the word "token"
+# would retry a command that already ran when the message merely mentions it.
+_TOKEN_ERROR_CODES = frozenset({401, "401", 10020, "10020", 10021, "10021"})
+_TOKEN_ERROR_MESSAGES = frozenset(
+    {
+        "token expired",
+        "token is invalid",
+        "token invalid",
+        "invalid token",
+        "token 为空",
+    }
+)
+
+
 def is_token_error(response: Mapping[str, Any]) -> bool:
     code = response.get("code")
-    message = str(response.get("message") or response.get("msg") or "").lower()
-    return code in (401, "401") or "token" in message
+    if code in _TOKEN_ERROR_CODES:
+        return True
+    message = str(response.get("message") or response.get("msg") or "").strip().lower()
+    return message in _TOKEN_ERROR_MESSAGES
 
 
 def jwt_expiry_ms(token: str) -> int:

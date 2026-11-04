@@ -4,11 +4,7 @@
 
 ## Testing
 
-- [ ] `python -m pip install -r requirements-test.txt`
-- [ ] `python -m compileall -q custom_components`
-- [ ] `python -m pytest -q`
-- [ ] `black --check custom_components tests`
-- [ ] Home Assistant config check or equivalent runtime validation
+- [ ] Installed in Home Assistant and exercised the affected flow
 
 ## Security
 

@@ -12,3 +12,4 @@ configuration.yaml
 .env
 .env.*
 tcl_credential_backups/
+.idea/
