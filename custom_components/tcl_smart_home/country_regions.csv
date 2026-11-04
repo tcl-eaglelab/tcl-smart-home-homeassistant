@@ -1,0 +1,250 @@
+﻿id,country_name,country_area,country_code,time_zone,sso_region,cloud_region
+120,印度（India）,亚洲,IN,Asia/Kolkata,SG,ap-southeast-1
+121,越南（Vietnam）,亚洲,VN,Asia/Ho_Chi_Minh,SG,ap-southeast-1
+122,巴基斯坦（Pakistan）,亚洲,PK,Asia/Karachi,SG,ap-southeast-1
+123,菲律宾（Philippines）,亚洲,PH,Asia/Manila,SG,ap-southeast-1
+124,"阿联酋（United Arab emirates）",中东非,AE,Asia/Dubai,SG,ap-southeast-1
+125,澳大利亚（Australia）,大洋洲,AU,Australia/Sydney,SG,ap-southeast-1
+126,"新西兰（New Zealand）",大洋洲,NZ,Pacific/Auckland,SG,ap-southeast-1
+127,德国（Germany）,欧洲,DE,Europe/Berlin,FR,eu-central-1
+128,法国（France）,欧洲,FR,Europe/Paris,FR,eu-central-1
+129,"英国（United Kingdom）",欧洲,GB,Europe/London,FR,eu-central-1
+130,意大利（Italy）,欧洲,IT,Europe/Rome,FR,eu-central-1
+131,斯洛伐克（Slovakia）,欧洲,SK,Europe/Bratislava,FR,eu-central-1
+132,捷克（Czechia）,欧洲,CZ,Europe/Prague,FR,eu-central-1
+133,匈牙利（Hungary）,欧洲,HU,Europe/Budapest,FR,eu-central-1
+134,科威特（Kuwait）,中东非,KW,Asia/Kuwait,SG,ap-southeast-1
+135,"沙特（Saudi Arabia）",中东非,SA,Asia/Riyadh,SG,ap-southeast-1
+136,巴林（Bahrain）,中东非,BH,Asia/Bahrain,SG,ap-southeast-1
+137,突尼斯（Tunisia),中东非,TN,Africa/Tunis,SG,ap-southeast-1
+138,阿尔及利亚（Algeria）,中东非,DZ,Africa/Algiers,SG,ap-southeast-1
+139,科摩罗（Comoros）,中东非,KM,Indian/Comoro,SG,ap-southeast-1
+140,吉布提（Djibouti）,中东非,DJ,Africa/Djibouti,SG,ap-southeast-1
+141,埃及（Egypt）,中东非,EG,Africa/Cairo,SG,ap-southeast-1
+142,伊拉克（Iraq）,中东非,IQ,Asia/Baghdad,SG,ap-southeast-1
+143,约旦（Jordan）,中东非,JO,Asia/Amman,SG,ap-southeast-1
+144,黎巴嫩（Lebanon),中东非,LB,Asia/Beirut,SG,ap-southeast-1
+145,利比亚（Libya）,中东非,LY,Africa/Tripoli,SG,ap-southeast-1
+146,毛里塔尼亚（Mauritania）,中东非,MR,Africa/Nouakchott,SG,ap-southeast-1
+147,阿曼（Oman）,中东非,OM,Asia/Muscat,SG,ap-southeast-1
+148,巴勒斯坦（Palestine）,中东非,PS,Asia/Gaza,SG,ap-southeast-1
+149,卡塔尔（Qatar),中东非,QA,Asia/Qatar,SG,ap-southeast-1
+150,索马里（Somalia）,中东非,SO,Africa/Mogadishu,SG,ap-southeast-1
+151,苏丹（Sudan),中东非,SD,Africa/Khartoum,SG,ap-southeast-1
+152,叙利亚（Syria）,中东非,SY,Asia/Damascus,FR,eu-central-1
+153,也门（Yemen）,中东非,YE,Asia/Aden,SG,ap-southeast-1
+154,摩洛哥（Morocco）,中东非,MA,Africa/Casablanca,SG,ap-southeast-1
+155,泰国（Thailand）,亚洲,TH,Asia/Bangkok,SG,ap-southeast-1
+156,印尼（Indonesia）,亚洲,ID,Asia/Jakarta,SG,ap-southeast-1
+157,葡萄牙（Portugal）,欧洲,PT,Europe/Lisbon,FR,eu-central-1
+158,新加坡（Singapore）,亚洲,SG,Asia/Singapore,SG,ap-southeast-1
+159,缅甸（Myanmar）,亚洲,MM,Asia/Yangon,SG,ap-southeast-1
+160,智利（Chile）,南美,CL,America/Santiago,SG,ap-southeast-1
+161,阿根廷（Argentina）,南美,AR,America/Argentina/Cordoba,SG,ap-southeast-1
+162,乌克兰（Ukraine）,欧洲,UA,Europe/Kyiv,FR,eu-central-1
+163,冰岛（Iceland）,欧洲,IS,Atlantic/Reykjavik,FR,eu-central-1
+164,加纳（Ghana）,中东非,GH,Africa/Accra,SG,ap-southeast-1
+165,肯尼亚（Kenya）,中东非,KE,Africa/Nairobi,SG,ap-southeast-1
+166,毛里求斯（Mauritius）,中东非,MU,Indian/Mauritius,SG,ap-southeast-1
+167,"南非（South Africa）",中东非,ZA,Africa/Johannesburg,SG,ap-southeast-1
+168,巴西（Brazil）,南美,BR,America/Sao_Paulo,BR,sa-east-1
+169,厄瓜多尔（Ecuador）,南美,EC,America/Guayaquil,SG,ap-southeast-1
+170,比利时（Belgium),欧洲,BE,Europe/Brussels,FR,eu-central-1
+171,卢森堡（Luxembourg),欧洲,LU,Europe/Luxembourg,FR,eu-central-1
+172,瑞士（Switzerland),欧洲,CH,Europe/Zurich,FR,eu-central-1
+173,爱尔兰（Ireland）,欧洲,IE,Europe/Dublin,FR,eu-central-1
+174,希腊（Greece),欧洲,GR,Europe/Athens,FR,eu-central-1
+175,西班牙（Spain）,欧洲,ES,Europe/Madrid,FR,eu-central-1
+176,波兰（Poland）,欧洲,PL,Europe/Warsaw,FR,eu-central-1
+177,荷兰（Netherlands）,欧洲,NL,Europe/Amsterdam,FR,eu-central-1
+178,奥地利（Austria),欧洲,AT,Europe/Vienna,FR,eu-central-1
+179,墨西哥（Mexico）,北美,MX,America/Mexico_City,SG,ap-southeast-1
+180,丹麦（Denmark）,欧洲,DK,Europe/Copenhagen,FR,eu-central-1
+181,芬兰（Finland),欧洲,FI,Europe/Helsinki,FR,eu-central-1
+182,挪威（Norway）,欧洲,NO,Europe/Oslo,FR,eu-central-1
+183,罗马尼亚（Romania）,欧洲,RO,Europe/Bucharest,FR,eu-central-1
+184,拉脱维亚（Latvia),欧洲,LV,Europe/Riga,FR,eu-central-1
+185,塞尔维亚（Serbia）,欧洲,RS,Europe/Belgrade,FR,eu-central-1
+186,瑞典（Sweden）,欧洲,SE,Europe/Stockholm,FR,eu-central-1
+187,爱沙尼亚（Estonia),欧洲,EE,Europe/Tallinn,FR,eu-central-1
+188,加蓬（Gabon）,中东非,GA,Africa/Libreville,SG,ap-southeast-1
+189,科特迪瓦（Coted'Ivoire）,中东非,CI,Africa/Abidjan,SG,ap-southeast-1
+190,利比里亚（Liberia）,中东非,LR,Africa/Monrovia,SG,ap-southeast-1
+191,尼日利亚（Nigeria）,中东非,NG,Africa/Lagos,SG,ap-southeast-1
+192,以色列（Israel）,中东非,IL,Asia/Jerusalem,SG,ap-southeast-1
+193,香港（Hongkong.China),亚洲,HK,Asia/Hong_Kong,SG,ap-southeast-1
+194,玻利维亚（Bolivia),南美,BO,America/La_Paz,SG,ap-southeast-1
+195,"多米尼加（Dominican Republish）",北美,DO,America/Santo_Domingo,SG,ap-southeast-1
+196,"波多黎各（Puerto Rico)",南美,PR,America/Puerto_Rico,SG,ap-southeast-1
+197,巴拿马（Panama）,南美,PA,America/Panama,SG,ap-southeast-1
+198,库拉索（Curacao)（仅Google）,南美,CW,America/Curacao,SG,ap-southeast-1
+199,土耳其（Turkey）,欧洲,TR,Europe/Istanbul,SG,ap-southeast-1
+200,塞浦路斯（Cyprus),欧洲,CY,Asia/Nicosia,FR,eu-central-1
+201,哥伦比亚（Columbia）,南美,CO,America/Bogota,SG,ap-southeast-1
+202,洪都拉斯（Hunduras）,北美,HN,America/Tegucigalpa,SG,ap-southeast-1
+203,危地马拉（Guatemala),北美,GT,America/Guatemala,SG,ap-southeast-1
+204,萨尔瓦多（Salvador）,北美,SV,America/El_Salvador,SG,ap-southeast-1
+205,尼泊尔（Nepal）,亚洲,NP,Asia/Kathmandu,SG,ap-southeast-1
+206,加拿大（Canada),北美,CA,America/Toronto,SG,ap-southeast-1
+207,"美国（United States)",北美,US,America/New_York,US,us-east-1
+208,乌拉圭（Uruguay）,南美,UY,America/Montevideo,SG,ap-southeast-1
+209,克罗地亚（Croatia）,欧洲,HR,Europe/Zagreb,FR,eu-central-1
+210,科索沃（Kosovo）（仅IOS）,欧洲,XK,Europe/Belgrade,FR,eu-central-1
+211,黑山（Montenegro）（仅IOS）,欧洲,ME,Europe/Podgorica,FR,eu-central-1
+212,列支敦士登（Liechtenstein）（仅Google）,欧洲,LI,Europe/Vaduz,FR,eu-central-1
+213,摩纳哥（Monaco)（仅Google）,欧洲,MC,Europe/Monaco,FR,eu-central-1
+214,阿尔巴尼亚（Albania）,欧洲,AL,Europe/Tirane,FR,eu-central-1
+215,保加利亚（Bulgaria）,欧洲,BG,Europe/Sofia,FR,eu-central-1
+216,立陶宛（Lithuania）,欧洲,LT,Europe/Vilnius,FR,eu-central-1
+217,"北马其顿（North Macedonia）",欧洲,MK,Europe/Skopje,FR,eu-central-1
+218,摩尔多瓦（Moldova）,欧洲,MD,Europe/Chisinau,FR,eu-central-1
+219,"波斯尼亚和黑塞哥维那（Bosnia and Herzegovina)",欧洲,BA,Europe/Sarajevo,FR,eu-central-1
+220,斯洛文尼亚（Slovenia）,欧洲,SI,Europe/Ljubljana,FR,eu-central-1
+221,白俄罗斯（Belarus）,欧洲,BY,Europe/Minsk,FR,eu-central-1
+222,"哥斯达黎加（Costa Rica）",北美,CR,America/Costa_Rica,SG,ap-southeast-1
+223,尼加拉瓜（Nicaragua）,北美,NI,America/Managua,SG,ap-southeast-1
+224,中国台湾（Taiwan.China）,亚洲,TW,Asia/Taipei,SG,ap-southeast-1
+225,海地（Haiti）,北美,HT,America/Port-au-Prince,SG,ap-southeast-1
+226,"安提瓜和巴布达（Antigua and Barbuda）",北美,AG,America/Antigua,SG,ap-southeast-1
+227,"圣基茨和尼维斯（Saint Kitts and Nevis）",北美,KN,America/St_Kitts,SG,ap-southeast-1
+228,"圣卢西亚（Saint Lucia）",北美,LC,America/St_Lucia,SG,ap-southeast-1
+229,"圣文森特和格林纳丁斯（Saint Vincent and the Grenadines）",北美,VC,America/St_Vincent,SG,ap-southeast-1
+230,"特立尼达和多巴哥（Trinidad and Tobago)",北美,TT,America/Port_of_Spain,SG,ap-southeast-1
+231,阿鲁巴（Aruba）,南美,AW,America/Aruba,SG,ap-southeast-1
+232,巴巴多斯（Barbados）,北美,BB,America/Barbados,SG,ap-southeast-1
+233,圭亚那（Guyana）,南美,GY,America/Guyana,SG,ap-southeast-1
+234,格林纳达（Grenada）,北美,GD,America/Grenada,SG,ap-southeast-1
+235,牙买加（Jamaica）,北美,JM,America/Jamaica,SG,ap-southeast-1
+236,俄罗斯（Russia）,欧洲,RU,Europe/Moscow,FR,eu-central-1
+237,马来西亚（Malaysia）,亚洲,MY,Asia/Kuching,SG,ap-southeast-1
+238,日本（Japan）,亚洲,JP,Asia/Tokyo,SG,ap-southeast-1
+239,韩国（Korea）,亚洲,KR,Asia/Seoul,SG,ap-southeast-1
+240,阿富汗（Afghanistan）,亚洲,AF,Asia/Kabul,SG,ap-southeast-1
+241,"阿森松（American Samoa）",大洋洲,AS,Pacific/Pago_Pago,SG,ap-southeast-1
+242,安道尔（Andorra）,欧洲,AD,Europe/Andorra,FR,eu-central-1
+243,安哥拉（Angola）,非洲,AO,Africa/Luanda,SG,ap-southeast-1
+244,安圭拉（Anguilla）,北美洲,AI,America/Anguilla,SG,ap-southeast-1
+245,南极洲（Antarctica）,南极洲,AQ,Antarctica/Troll,SG,ap-southeast-1
+246,亚美尼亚（Armenia）,亚洲,AM,Asia/Yerevan,SG,ap-southeast-1
+247,阿塞拜疆（Azerbaijan）,亚洲,AZ,Asia/Baku,SG,ap-southeast-1
+248,巴哈马（Bahamas）,北美洲,BS,America/Nassau,SG,ap-southeast-1
+249,孟加拉（Bangladesh）,亚洲,BD,Asia/Dhaka,SG,ap-southeast-1
+250,伯利兹（Belize）,北美洲,BZ,America/Belize,SG,ap-southeast-1
+251,贝宁（Benin）,非洲,BJ,Africa/Porto-Novo,SG,ap-southeast-1
+252,百慕大（Bermuda）,北美洲,BM,Atlantic/Bermuda,SG,ap-southeast-1
+253,不丹（Bhutan）,亚洲,BT,Asia/Thimphu,SG,ap-southeast-1
+254,"荷兰加勒比区（Bonaire, Sint Eustatius and Saba）",北美洲,BQ,America/Kralendijk,SG,ap-southeast-1
+255,博茨瓦纳（Botswana）,非洲,BW,Africa/Gaborone,SG,ap-southeast-1
+256,"布维岛（Bouvet Island）",南极洲,BV,Antarctica/Bouvet,SG,ap-southeast-1
+257,"英联邦的印度洋领域（British Indian Ocean Territory）",亚洲,IO,Indian/Chagos,SG,ap-southeast-1
+258,"文莱（Brunei Darussalam）",亚洲,BN,Asia/Brunei,SG,ap-southeast-1
+259,"布其纳法索（Burkina Faso）",非洲,BF,Africa/Ouagadougou,SG,ap-southeast-1
+260,布隆迪（Burundi）,非洲,BI,Africa/Bujumbura,SG,ap-southeast-1
+261,"佛得角（Cabo Verde）",非洲,CV,Atlantic/Cape_Verde,SG,ap-southeast-1
+262,柬埔寨（Cambodia）,亚洲,KH,Asia/Phnom_Penh,SG,ap-southeast-1
+263,喀麦隆（Cameroon）,非洲,CM,Africa/Douala,SG,ap-southeast-1
+264,"开曼群岛（Cayman Islands）",北美洲,KY,America/Cayman,SG,ap-southeast-1
+265,"中非共和国（Central African Republic）",非洲,CF,Africa/Bangui,SG,ap-southeast-1
+266,乍得（Chad）,非洲,TD,Africa/Ndjamena,SG,ap-southeast-1
+267,中国（China）,亚洲,CN,Asia/Shanghai,CN,cn-north-1
+268,"圣诞岛（Christmas Island）",亚洲,CX,Indian/Christmas,SG,ap-southeast-1
+269,"可可岛（Cocos(Keeling) Islands）",亚洲,CC,Indian/Cocos,SG,ap-southeast-1
+270,刚果（Congo）,非洲,CG,Africa/Brazzaville,SG,ap-southeast-1
+271,"刚果（金）（Congo(Democratic Republic of the)）",非洲,CD,Africa/Kinshasa,SG,ap-southeast-1
+272,"库克群岛（Cook Islands）",大洋洲,CK,Pacific/Rarotonga,SG,ap-southeast-1
+273,古巴（Cuba）,北美洲,CU,America/Havana,FR,eu-central-1
+274,多明哥（Dominica）,北美洲,DM,America/Dominica,SG,ap-southeast-1
+275,"赤道几内亚（Equatorial Guinea）",非洲,GQ,Africa/Malabo,SG,ap-southeast-1
+276,厄立特里亚（Eritrea）,非洲,ER,Africa/Asmara,SG,ap-southeast-1
+277,斯威士兰（Eswatini）,非洲,SZ,Africa/Mbabane,SG,ap-southeast-1
+278,埃塞俄比亚（Ethiopia）,非洲,ET,Africa/Addis_Ababa,SG,ap-southeast-1
+279,"福克兰群岛（Falkland Islands (Malvinas)）",南美洲,FK,Atlantic/Stanley,SG,ap-southeast-1
+280,"法罗群岛（Faroe Islands）",欧洲,FO,Atlantic/Faroe,FR,eu-central-1
+281,斐济（Fiji）,大洋洲,FJ,Pacific/Fiji,SG,ap-southeast-1
+282,"法属圭亚那（French Guiana）",南美洲,GF,America/Cayenne,SG,ap-southeast-1
+283,"法属玻里尼西亚（French Polynesia）",大洋洲,PF,Pacific/Tahiti,SG,ap-southeast-1
+284,"法属南方领土（French Southern Territories）",南极洲,TF,Indian/Kerguelen,SG,ap-southeast-1
+285,冈比亚（Gambia）,非洲,GM,Africa/Banjul,SG,ap-southeast-1
+286,格鲁吉亚（Georgia）,亚洲,GE,Asia/Tbilisi,SG,ap-southeast-1
+287,直布罗陀（Gibraltar）,欧洲,GI,Europe/Gibraltar,FR,eu-central-1
+288,格陵兰（Greenland）,北美洲,GL,America/Nuuk,SG,ap-southeast-1
+289,瓜德罗普（Guadeloupe）,北美洲,GP,America/Guadeloupe,SG,ap-southeast-1
+290,关岛（Guam）,大洋洲,GU,Pacific/Guam,SG,ap-southeast-1
+291,根西岛（Guernsey）,欧洲,GG,Europe/Guernsey,FR,eu-central-1
+292,几内亚（Guinea）,非洲,GN,Africa/Conakry,SG,ap-southeast-1
+293,"几内亚比绍（Guinea - Bissau）",非洲,GW,Africa/Bissau,SG,ap-southeast-1
+294,"赫德岛和麦克唐纳群岛（Heard Island and McDonald Islands）",南极洲,HM,Indian/Heard,SG,ap-southeast-1
+295,"梵蒂冈（罗马教庭）（Holy See）",欧洲,VA,Europe/Vatican,FR,eu-central-1
+296,"伊朗（Iran(Islamic Republic of)）",亚洲,IR,Asia/Tehran,FR,eu-central-1
+297,"马恩岛（Isle of Man）",欧洲,IM,Europe/Isle_of_Man,FR,eu-central-1
+298,泽西岛（Jersey）,欧洲,JE,Europe/Jersey,FR,eu-central-1
+299,哈萨克斯坦（Kazakhstan）,亚洲,KZ,Asia/Almaty,SG,ap-southeast-1
+300,基里巴斯（Kiribati）,大洋洲,KI,Pacific/Tarawa,SG,ap-southeast-1
+301,"朝鲜（Korea(Democratic People's Republic of)）",亚洲,KP,Asia/Pyongyang,FR,eu-central-1
+302,吉尔吉斯斯坦（Kyrgyzstan）,亚洲,KG,Asia/Bishkek,SG,ap-southeast-1
+303,"老挝（Lao People's Democratic Republic）",亚洲,LA,Asia/Vientiane,SG,ap-southeast-1
+304,莱索托（Lesotho）,非洲,LS,Africa/Maseru,SG,ap-southeast-1
+305,中国澳门（Macao）,亚洲,MO,Asia/Macau,SG,ap-southeast-1
+306,马达加斯加（Madagascar）,非洲,MG,Africa/Antananarivo,SG,ap-southeast-1
+307,马拉维（Malawi）,非洲,MW,Africa/Blantyre,SG,ap-southeast-1
+308,马尔代夫（Maldives）,亚洲,MV,Indian/Maldives,SG,ap-southeast-1
+309,马里（Mali）,非洲,ML,Africa/Bamako,SG,ap-southeast-1
+310,马尔他（Malta）,欧洲,MT,Europe/Malta,FR,eu-central-1
+311,"马绍尔群岛（Marshall Islands）",大洋洲,MH,Pacific/Majuro,SG,ap-southeast-1
+312,马提尼克（Martinique）,北美洲,MQ,America/Martinique,SG,ap-southeast-1
+313,马约特（Mayotte）,非洲,YT,Indian/Mayotte,SG,ap-southeast-1
+314,"密克罗尼西亚（Micronesia(Federated States of)）",大洋洲,FM,Pacific/Chuuk,SG,ap-southeast-1
+315,蒙古（Mongolia）,亚洲,MN,Asia/Ulaanbaatar,SG,ap-southeast-1
+316,蒙塞拉特岛（Montserrat）,北美洲,MS,America/Montserrat,SG,ap-southeast-1
+317,莫桑比克（Mozambique）,非洲,MZ,Africa/Maputo,SG,ap-southeast-1
+318,纳米比亚（Namibia）,非洲,NA,Africa/Windhoek,SG,ap-southeast-1
+319,瑙鲁（Nauru）,大洋洲,NR,Pacific/Nauru,SG,ap-southeast-1
+320,"新喀里多尼亚（New Caledonia）",大洋洲,NC,Pacific/Noumea,SG,ap-southeast-1
+321,尼日尔（Niger）,非洲,NE,Africa/Niamey,SG,ap-southeast-1
+322,纽埃（Niue）,大洋洲,NU,Pacific/Niue,SG,ap-southeast-1
+323,"诺福克岛（Norfolk Island）",大洋洲,NF,Pacific/Norfolk,SG,ap-southeast-1
+324,"北马里亚纳群岛（Northern Mariana Islands）",大洋洲,MP,Pacific/Saipan,SG,ap-southeast-1
+325,帕劳（Palau）,大洋洲,PW,Pacific/Palau,SG,ap-southeast-1
+326,"巴布亚新几内亚（Papua New Guinea）",大洋洲,PG,Pacific/Port_Moresby,SG,ap-southeast-1
+327,巴拉圭（Paraguay）,南美洲,PY,America/Asuncion,SG,ap-southeast-1
+328,秘鲁（Peru）,南美洲,PE,America/Lima,SG,ap-southeast-1
+329,皮特开恩群岛（Pitcairn）,大洋洲,PN,Pacific/Pitcairn,SG,ap-southeast-1
+330,卢旺达（Rwanda）,非洲,RW,Africa/Kigali,SG,ap-southeast-1
+331,留尼汪（Réunion）,非洲,RE,Indian/Reunion,SG,ap-southeast-1
+332,"圣巴泰勒米岛（Saint Barthélemy）",北美洲,BL,America/St_Barthelemy,SG,ap-southeast-1
+333,"圣赫勒那（Saint Helena, Ascension and Tristan da Cunha）",非洲,SH,Atlantic/St_Helena,SG,ap-southeast-1
+334,"法属圣马丁（Saint Martin (French part)）",北美洲,MF,America/Marigot,SG,ap-southeast-1
+335,"圣皮埃尔和密克隆（Saint Pierre and Miquelon）",北美洲,PM,America/Miquelon,SG,ap-southeast-1
+336,西萨摩亚（Samoa）,大洋洲,WS,Pacific/Apia,SG,ap-southeast-1
+337,"圣马力诺（San Marino）",欧洲,SM,Europe/San_Marino,FR,eu-central-1
+338,"圣多美与普林西比（Sao Tome and Principe）",非洲,ST,Africa/Sao_Tome,SG,ap-southeast-1
+339,塞内加尔（Senegal）,非洲,SN,Africa/Dakar,SG,ap-southeast-1
+340,塞舌尔（Seychelles）,非洲,SC,Indian/Mahe,SG,ap-southeast-1
+341,"塞拉利昂（Sierra Leone）",非洲,SL,Africa/Freetown,SG,ap-southeast-1
+342,"圣马藤岛和圣马丁（Sint Maarten (Dutch part)）",北美洲,SX,America/Lower_Princes,SG,ap-southeast-1
+343,"所罗门群岛（Solomon Islands）",大洋洲,SB,Pacific/Guadalcanal,SG,ap-southeast-1
+344,"南乔治亚岛和南桑威奇群岛（South Georgia and the South Sandwich Islands）",南极洲,GS,Atlantic/South_Georgia,SG,ap-southeast-1
+345,"南苏丹（South Sudan）",非洲,SS,Africa/Juba,SG,ap-southeast-1
+346,"斯里兰卡（Sri Lanka）",亚洲,LK,Asia/Colombo,SG,ap-southeast-1
+347,苏里南（Suriname）,南美洲,SR,America/Paramaribo,SG,ap-southeast-1
+348,"斯瓦尔巴群岛和 扬马延岛（Svalbard and Jan Mayen）",欧洲,SJ,Arctic/Longyearbyen,FR,eu-central-1
+349,塔吉克斯坦（Tajikistan）,亚洲,TJ,Asia/Dushanbe,SG,ap-southeast-1
+350,"坦桑尼亚（Tanzania, United Republic of）",非洲,TZ,Africa/Dar_es_Salaam,SG,ap-southeast-1
+351,"东帝汶（Timor - Leste）",亚洲,TL,Asia/Dili,SG,ap-southeast-1
+352,多哥（Togo）,非洲,TG,Africa/Lome,SG,ap-southeast-1
+353,托克劳（Tokelau）,大洋洲,TK,Pacific/Fakaofo,SG,ap-southeast-1
+354,汤加（Tonga）,大洋洲,TO,Pacific/Tongatapu,SG,ap-southeast-1
+355,土库曼斯坦（Turkmenistan）,亚洲,TM,Asia/Ashgabat,SG,ap-southeast-1
+356,"特克斯和凯科斯群岛（Turks and Caicos Islands）",北美洲,TC,America/Grand_Turk,SG,ap-southeast-1
+357,图瓦卢（Tuvalu）,大洋洲,TV,Pacific/Funafuti,SG,ap-southeast-1
+358,乌干达（Uganda）,非洲,UG,Africa/Kampala,SG,ap-southeast-1
+359,"美国边远小岛（United States Minor Outlying Islands）",大洋洲,UM,Pacific/Wake,SG,ap-southeast-1
+360,乌兹别克斯坦（Uzbekistan）,亚洲,UZ,Asia/Tashkent,SG,ap-southeast-1
+361,瓦努阿图（Vanuatu）,大洋洲,VU,Pacific/Efate,SG,ap-southeast-1
+362,"委内瑞拉（Venezuela(Bolivarian Republic of)）",南美洲,VE,America/Caracas,SG,ap-southeast-1
+363,"不列颠岛(美)（Virgin Islands (U.S.)）",北美洲,VI,America/St_Thomas,SG,ap-southeast-1
+364,"瓦利斯和富图纳（Wallis and Futuna）",大洋洲,WF,Pacific/Wallis,SG,ap-southeast-1
+365,"西撒哈拉（Western Sahara）",非洲,EH,Africa/El_Aaiun,SG,ap-southeast-1
+366,赞比亚（Zambia）,非洲,ZM,Africa/Lusaka,SG,ap-southeast-1
+367,津巴布韦（Zimbabwe）,非洲,ZW,Africa/Harare,SG,ap-southeast-1
+368,"芬兰奥兰自治区（Åland Islands）",欧洲,AX,Europe/Mariehamn,FR,eu-central-1

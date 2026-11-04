@@ -1,0 +1,120 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect TCL Smart Home",
+        "description": "Select the country or region where your TCL account and devices are registered. TCL Smart Home automatically chooses the matching account center and IoT cloud endpoint. Do not choose a server manually.",
+        "data": {
+          "country_code": "Account country or region"
+        }
+      },
+      "authorize": {
+        "title": "Connect TCL Smart Home",
+        "description": "Scan the QR code with the TCL App and approve access.\n\n![TCL QR code]({qr_url})\n\nImage not showing? [Open QR code]({qr_url})",
+        "menu_options": {
+          "check_authorization": "I have scanned — continue",
+          "refresh_qr": "Refresh QR code"
+        }
+      },
+      "authorize_pending": {
+        "title": "Connect TCL Smart Home",
+        "description": "**Authorization has not been detected. Confirm in the TCL App, then try again.**\n\nScan the QR code with the TCL App and approve access.\n\n![TCL QR code]({qr_url})\n\nImage not showing? [Open QR code]({qr_url})",
+        "menu_options": {
+          "check_authorization": "I have scanned — continue",
+          "refresh_qr": "Refresh QR code"
+        }
+      },
+      "authorize_expired": {
+        "title": "Connect TCL Smart Home",
+        "description": "**The previous code expired. A new code is ready; please scan it again.**\n\nScan the QR code with the TCL App and approve access.\n\n![TCL QR code]({qr_url})\n\nImage not showing? [Open QR code]({qr_url})",
+        "menu_options": {
+          "check_authorization": "I have scanned — continue",
+          "refresh_qr": "Refresh QR code"
+        }
+      },
+      "authorize_failed": {
+        "title": "Connect TCL Smart Home",
+        "description": "**Authorization failed. Scan again or refresh the QR code.**\n\nScan the QR code with the TCL App and approve access.\n\n![TCL QR code]({qr_url})\n\nImage not showing? [Open QR code]({qr_url})",
+        "menu_options": {
+          "check_authorization": "I have scanned — continue",
+          "refresh_qr": "Refresh QR code"
+        }
+      },
+      "authorize_retry": {
+        "title": "Connect TCL Smart Home",
+        "description": "**Unable to reach TCL right now. Please try again.**\n\nScan the QR code with the TCL App and approve access.\n\n![TCL QR code]({qr_url})\n\nImage not showing? [Open QR code]({qr_url})",
+        "menu_options": {
+          "check_authorization": "I have scanned — continue",
+          "refresh_qr": "Refresh QR code"
+        }
+      },
+      "authorize_unavailable": {
+        "title": "Connect TCL Smart Home",
+        "description": "**The QR code could not be loaded. Click Refresh QR code to try again.**\n\n",
+        "menu_options": {
+          "check_authorization": "I have scanned — continue",
+          "refresh_qr": "Refresh QR code"
+        }
+      }
+    },
+    "error": {
+      "invalid_country": "Select a supported country or region."
+    },
+    "abort": {
+      "already_configured": "TCL Smart Home is already configured for this country or region.",
+      "reauth_successful": "TCL Smart Home was reauthenticated.",
+      "missing_application_credentials": "Configure the appropriate TCL application secret under tcl_smart_home in configuration.yaml using !secret, then restart Home Assistant. See the installation guide."
+    }
+  },
+  "exceptions": {
+    "device_not_found": {
+      "message": "TCL device {device_id} was not found in the current device list."
+    },
+    "property_not_found": {
+      "message": "TCL property {property} is not present in the device model."
+    },
+    "property_read_only": {
+      "message": "TCL property {property} is read-only."
+    },
+    "authorization_expired": {
+      "message": "TCL authorization expired. Reauthenticate the integration."
+    },
+    "api_error": {
+      "message": "TCL API error {code}: {message}"
+    },
+    "control_not_allowed": {
+      "message": "This control or value is not allowed by the capability policy. No command was sent."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "TCL Smart Home options",
+        "description": "A shorter interval gives faster updates but increases cloud API traffic.",
+        "data": {
+          "scan_interval": "Polling interval (seconds)"
+        }
+      }
+    }
+  },
+  "services": {
+    "set_property": {
+      "name": "Set property",
+      "description": "Send a writable TSL property to a TCL overseas device.",
+      "fields": {
+        "device_id": {
+          "name": "Device ID",
+          "description": "The TCL deviceId."
+        },
+        "property": {
+          "name": "Property",
+          "description": "The writable TSL property identifier."
+        },
+        "value": {
+          "name": "Value",
+          "description": "Property value. Boolean properties are encoded as 0 or 1 for TCL."
+        }
+      }
+    }
+  }
+}

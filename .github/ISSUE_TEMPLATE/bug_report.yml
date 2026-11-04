@@ -1,0 +1,30 @@
+name: Bug report
+description: Report an integration problem with redacted diagnostics
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include QR codes, access tokens, refresh tokens, passwords, or `.storage` files.
+  - type: input
+    id: home_assistant_version
+    attributes:
+      label: Home Assistant version
+    validations:
+      required: true
+  - type: input
+    id: integration_version
+    attributes:
+      label: TCL integration version
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem description
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Redacted diagnostics
+      description: Attach diagnostics downloaded from the integration page after reviewing it for personal data.

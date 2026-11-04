@@ -1,0 +1,18 @@
+{
+  "domain": "tcl_smart_home",
+  "name": "TCL Smart Home",
+  "codeowners": [
+    "@xuhuatao"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/tcl-eaglelab/tcl-smart-home-homeassistant",
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/tcl-eaglelab/tcl-smart-home-homeassistant/issues",
+  "requirements": [],
+  "version": "0.3.3",
+  "dependencies": [
+    "frontend",
+    "http"
+  ]
+}

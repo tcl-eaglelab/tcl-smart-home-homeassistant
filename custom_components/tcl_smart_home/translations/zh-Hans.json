@@ -1,0 +1,120 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "连接 TCL 智能家居",
+        "description": "请选择 TCL 账号和设备注册所在的国家或地区。插件会自动选择对应的 TCL 账户中心和 IoT 云端点，无需手动选择服务器。",
+        "data": {
+          "country_code": "账号所属国家或地区"
+        }
+      },
+      "authorize": {
+        "title": "扫码连接 TCL Smart Home",
+        "description": "使用 TCL App 扫描下方二维码并确认授权。\n\n![TCL 二维码]({qr_url})\n\n图片未显示？[打开二维码]({qr_url})",
+        "menu_options": {
+          "check_authorization": "我已扫码，继续",
+          "refresh_qr": "刷新二维码"
+        }
+      },
+      "authorize_pending": {
+        "title": "扫码连接 TCL Smart Home",
+        "description": "**尚未检测到扫码授权，请在 TCL App 中完成确认后重试。**\n\n使用 TCL App 扫描下方二维码并确认授权。\n\n![TCL 二维码]({qr_url})\n\n图片未显示？[打开二维码]({qr_url})",
+        "menu_options": {
+          "check_authorization": "我已扫码，继续",
+          "refresh_qr": "刷新二维码"
+        }
+      },
+      "authorize_expired": {
+        "title": "扫码连接 TCL Smart Home",
+        "description": "**原二维码已过期，已生成新二维码，请重新扫码。**\n\n使用 TCL App 扫描下方二维码并确认授权。\n\n![TCL 二维码]({qr_url})\n\n图片未显示？[打开二维码]({qr_url})",
+        "menu_options": {
+          "check_authorization": "我已扫码，继续",
+          "refresh_qr": "刷新二维码"
+        }
+      },
+      "authorize_failed": {
+        "title": "扫码连接 TCL Smart Home",
+        "description": "**授权失败，请重新扫码或刷新二维码。**\n\n使用 TCL App 扫描下方二维码并确认授权。\n\n![TCL 二维码]({qr_url})\n\n图片未显示？[打开二维码]({qr_url})",
+        "menu_options": {
+          "check_authorization": "我已扫码，继续",
+          "refresh_qr": "刷新二维码"
+        }
+      },
+      "authorize_retry": {
+        "title": "扫码连接 TCL Smart Home",
+        "description": "**暂时无法连接 TCL 服务，请重试。**\n\n使用 TCL App 扫描下方二维码并确认授权。\n\n![TCL 二维码]({qr_url})\n\n图片未显示？[打开二维码]({qr_url})",
+        "menu_options": {
+          "check_authorization": "我已扫码，继续",
+          "refresh_qr": "刷新二维码"
+        }
+      },
+      "authorize_unavailable": {
+        "title": "扫码连接 TCL Smart Home",
+        "description": "**二维码暂时无法加载，请点击“刷新二维码”重试。**\n\n",
+        "menu_options": {
+          "check_authorization": "我已扫码，继续",
+          "refresh_qr": "刷新二维码"
+        }
+      }
+    },
+    "error": {
+      "invalid_country": "请选择有效的国家或地区。"
+    },
+    "abort": {
+      "already_configured": "该国家或地区的 TCL 智能家居已经配置。",
+      "reauth_successful": "TCL 智能家居已重新授权。",
+      "missing_application_credentials": "请先在 configuration.yaml 的 tcl_smart_home 下通过 !secret 配置对应的国内或海外应用密钥，然后重启 Home Assistant。详见安装说明。"
+    }
+  },
+  "exceptions": {
+    "device_not_found": {
+      "message": "当前设备列表中不存在 TCL 设备 {device_id}。"
+    },
+    "property_not_found": {
+      "message": "设备物模型中不存在 TCL 属性 {property}。"
+    },
+    "property_read_only": {
+      "message": "TCL 属性 {property} 是只读属性。"
+    },
+    "authorization_expired": {
+      "message": "TCL 授权已过期，请重新授权集成。"
+    },
+    "api_error": {
+      "message": "TCL API 错误 {code}：{message}"
+    },
+    "control_not_allowed": {
+      "message": "该功能未通过控制白名单或参数校验，未发送设备指令。"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "TCL 智能家居选项",
+        "description": "较短的轮询间隔可以更快更新状态，但会增加云端 API 请求量。",
+        "data": {
+          "scan_interval": "轮询间隔（秒）"
+        }
+      }
+    }
+  },
+  "services": {
+    "set_property": {
+      "name": "设置属性",
+      "description": "向 TCL 海外设备发送可写物模型属性。",
+      "fields": {
+        "device_id": {
+          "name": "设备 ID",
+          "description": "TCL 设备的 deviceId。"
+        },
+        "property": {
+          "name": "属性",
+          "description": "可写的物模型属性标识符。"
+        },
+        "value": {
+          "name": "值",
+          "description": "属性值。布尔属性会编码为 TCL 接口使用的 0 或 1。"
+        }
+      }
+    }
+  }
+}

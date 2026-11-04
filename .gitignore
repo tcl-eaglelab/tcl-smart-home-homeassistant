@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+*.log
+.storage/
+
+
+secrets.yaml
+configuration.yaml
+.env
+.env.*
+tcl_credential_backups/

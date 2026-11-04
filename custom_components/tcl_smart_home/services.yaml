@@ -1,0 +1,22 @@
+set_property:
+  name: Set property
+  description: Administrator-only action for explicitly approved TCL capabilities. A user context is required; use entity actions for automations.
+  fields:
+    device_id:
+      name: Device ID
+      description: The TCL deviceId.
+      required: true
+      selector:
+        text:
+    property:
+      name: Property
+      description: An approved property identifier. Engineering and lock controls are rejected.
+      required: true
+      selector:
+        text:
+    value:
+      name: Value
+      description: Property value. Boolean properties are encoded as 0 or 1 for TCL.
+      required: true
+      selector:
+        object:
