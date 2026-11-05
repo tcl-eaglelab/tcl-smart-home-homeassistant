@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import logging
 import time
+from collections.abc import Mapping
 from dataclasses import dataclass, replace
 from datetime import UTC, datetime, timedelta
 from typing import Any
@@ -14,7 +15,7 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 
 from .api import TCLApi
 from .api_common import TCLApiError, TCLAuthError
-from .capabilities import validate_write
+from .capabilities import profile_kind, validate_write
 from .const import (
     CONF_ACCESS_TOKEN,
     CONF_REFRESH_TOKEN,
@@ -24,10 +25,14 @@ from .const import (
     DOMAIN,
     MAX_SCAN_INTERVAL_SECONDS,
     MIN_SCAN_INTERVAL_SECONDS,
+    LOCK_TYPE_REFRESH_INTERVAL_SECONDS,
     MODEL_REFRESH_INTERVAL_SECONDS,
 )
 from .model import (
     coerce_control_value,
+    is_door_lock,
+    lock_needs_keepalive_lookup,
+    merge_lock_online,
     model_fingerprint,
     model_properties,
     property_identifier,
@@ -72,6 +77,8 @@ class TCLCoordinator(DataUpdateCoordinator[dict[str, TCLDeviceData]]):
         self.api = api
         self._model_cache: dict[str, dict[str, Any]] = {}
         self._device_cache: dict[str, TCLDeviceData] = {}
+        self._lock_type_cache: dict[str, int] = {}
+        self._lock_type_fetched_at: dict[str, float] = {}
         self._known_device_ids: set[str] | None = None
         self._known_model_hashes: dict[str, str] = {}
         self._model_fetched_at: dict[str, float] = {}
@@ -100,10 +107,36 @@ class TCLCoordinator(DataUpdateCoordinator[dict[str, TCLDeviceData]]):
                 for device in devices
                 if str(device.get("deviceId") or device.get("id") or "")
             }
+            lock_types = await self._async_get_lock_types(
+                [
+                    device
+                    for device in devices
+                    if isinstance(device, Mapping)
+                    and is_door_lock(device, profile_kind(device))
+                ]
+            )
 
             async def load_device(device: dict[str, Any]) -> TCLDeviceData:
+                device = dict(device)
                 device_id = str(device.get("deviceId") or device.get("id") or "")
+                product_key = str(device.get("productKey") or "")
                 previous = self._device_cache.get(device_id)
+                if product_key and product_key in lock_types:
+                    device["lockType"] = lock_types[product_key]
+                elif previous is not None and previous.device.get("lockType") is not None:
+                    device["lockType"] = previous.device["lockType"]
+                if (
+                    device_id
+                    and is_door_lock(device, profile_kind(device))
+                    and lock_needs_keepalive_lookup(device)
+                ):
+                    device = await self._async_merge_lock_online(device_id, device)
+                    if (
+                        device.get("tcpStatus") is None
+                        and previous is not None
+                        and previous.device.get("tcpStatus") is not None
+                    ):
+                        device["tcpStatus"] = previous.device["tcpStatus"]
                 status = previous.status if previous else {}
                 status_ok = True
                 status_error = None
@@ -201,6 +234,66 @@ class TCLCoordinator(DataUpdateCoordinator[dict[str, TCLDeviceData]]):
             raise ConfigEntryAuthFailed("TCL authorization expired") from err
         except TCLApiError:
             raise UpdateFailed("TCL update failed") from None
+
+    async def _async_get_lock_types(
+        self, lock_devices: list[Mapping[str, Any]]
+    ) -> dict[str, int]:
+        """Batch-load short/long link types for door locks."""
+        product_keys = sorted(
+            {
+                str(device.get("productKey") or "")
+                for device in lock_devices
+                if str(device.get("productKey") or "")
+            }
+        )
+        now = time.monotonic()
+        missing = [
+            key
+            for key in product_keys
+            if now - self._lock_type_fetched_at.get(key, 0.0)
+            >= LOCK_TYPE_REFRESH_INTERVAL_SECONDS
+        ]
+        if missing:
+            try:
+                fetched = await self.api.async_get_lock_types(missing)
+            except TCLAuthError:
+                raise
+            except TCLApiError as err:
+                _LOGGER.warning(
+                    "Unable to refresh lock connection types (%s)",
+                    type(err).__name__,
+                )
+            else:
+                self._lock_type_cache.update(fetched)
+                for key in fetched:
+                    self._lock_type_fetched_at[key] = now
+        return {
+            key: self._lock_type_cache[key]
+            for key in product_keys
+            if key in self._lock_type_cache
+        }
+
+    async def _async_merge_lock_online(
+        self, device_id: str, device: dict[str, Any]
+    ) -> dict[str, Any]:
+        """Read keepalive for a lock. A failed lookup keeps the shadow flag."""
+        try:
+            online = await self.api.async_get_lock_online(
+                device_id,
+                product_key=str(device.get("productKey") or ""),
+                user_id=str(device.get("userId") or ""),
+            )
+        except TCLAuthError:
+            raise
+        except TCLApiError as err:
+            _LOGGER.warning(
+                "Unable to refresh lock keepalive status (%s)",
+                type(err).__name__,
+            )
+            return device
+        if isinstance(online, Mapping):
+            return merge_lock_online(device, online)
+        return device
 
     async def _async_reload_entry(self) -> None:
         """Reload platforms when the cloud device set changes."""

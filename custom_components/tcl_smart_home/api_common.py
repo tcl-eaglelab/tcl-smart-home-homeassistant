@@ -215,6 +215,13 @@ def is_success(response: Mapping[str, Any]) -> bool:
     return response.get("success") is True or code in (1, "1", 200, "200")
 
 
+def response_succeeded(
+    response: Mapping[str, Any], extra_codes: tuple[Any, ...] = ()
+) -> bool:
+    """Openclaw success, plus caller-specific codes such as door-lock 0."""
+    return is_success(response) or response.get("code") in extra_codes
+
+
 # Business codes observed from the account center. Matching the word "token"
 # would retry a command that already ran when the message merely mentions it.
 _TOKEN_ERROR_CODES = frozenset({401, "401", 10020, "10020", 10021, "10021"})
@@ -237,18 +244,62 @@ def is_token_error(response: Mapping[str, Any]) -> bool:
     return message in _TOKEN_ERROR_MESSAGES
 
 
-def jwt_expiry_ms(token: str) -> int:
+def jwt_claims(token: str) -> dict[str, Any]:
     try:
         payload = token.split(".")[1]
         padding = "=" * (-len(payload) % 4)
         claims = json.loads(base64.urlsafe_b64decode(payload + padding))
-        return int(claims["exp"]) * 1000
+        return claims if isinstance(claims, dict) else {}
     except (
         IndexError,
-        KeyError,
         ValueError,
         TypeError,
         binascii.Error,
         json.JSONDecodeError,
     ):
+        return {}
+
+
+def jwt_expiry_ms(token: str) -> int:
+    claims = jwt_claims(token)
+    try:
+        return int(claims["exp"]) * 1000
+    except (KeyError, ValueError, TypeError):
         return int(time.time() * 1000) + 60 * 60 * 1000
+
+
+def jwt_user_id(token: str) -> str:
+    """IoT user id carried as JWT subject for lock-type lookups."""
+    claims = jwt_claims(token)
+    subject = claims.get("sub")
+    return str(subject) if subject is not None and str(subject) else ""
+
+
+def lock_online_headers(
+    device_id: str, *, product_key: str = "", user_id: str = ""
+) -> dict[str, str]:
+    headers = {"Accept": "application/json", "deviceId": device_id}
+    if product_key:
+        headers["productKey"] = product_key
+    if user_id:
+        headers["userId"] = user_id
+    return headers
+
+
+def parse_lock_types(data: Any) -> dict[str, int]:
+    """Turn a lock-type list into productKey -> 0 short-link / 1 long-link."""
+    result: dict[str, int] = {}
+    if not isinstance(data, list):
+        return result
+    for item in data:
+        if not isinstance(item, Mapping):
+            continue
+        product_key = str(item.get("pk") or item.get("productKey") or "")
+        lock_type = item.get("lockType")
+        if not product_key or lock_type is None:
+            continue
+        try:
+            result[product_key] = int(lock_type)
+        except (TypeError, ValueError):
+            continue
+    return result

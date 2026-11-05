@@ -7,10 +7,11 @@ from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .capabilities import capability, reviewed_property_name
+from .capabilities import capability, profile_kind, reviewed_property_name
 from .const import CONF_COUNTRY_CODE, DOMAIN
 from .coordinator import TCLCoordinator, TCLDeviceData
 from .model import (
+    device_is_available,
     model_properties,
     property_icon,
     property_identifier,
@@ -60,8 +61,9 @@ class TCLDeviceEntity(CoordinatorEntity[TCLCoordinator]):
             return False
         if not self.device_data.status_ok:
             return False
-        online = self.device.get("isOnline", self.device.get("online", "1"))
-        return str(online).lower() in ("1", "true", "online", "on")
+        return device_is_available(
+            self.device, profile_kind(self.device), self.status
+        )
 
     @property
     def device_info(self) -> DeviceInfo:

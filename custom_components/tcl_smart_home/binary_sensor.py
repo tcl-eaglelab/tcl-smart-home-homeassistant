@@ -6,9 +6,11 @@ from homeassistant.components.binary_sensor import (
 )
 from homeassistant.helpers.entity import EntityCategory
 
-from .capabilities import platform_for
+from .capabilities import platform_for, profile_kind
 from .entity import TCLDeviceEntity, TCLPropertyEntity
-from .model import model_properties
+from .model import cloud_connectivity_on, model_properties
+
+PARALLEL_UPDATES = 0
 
 
 async def async_setup_entry(hass, entry, async_add_entities) -> None:
@@ -47,14 +49,9 @@ class TCLCloudConnectivity(TCLDeviceEntity, BinarySensorEntity):
 
     @property
     def is_on(self) -> bool | None:
-        device = self.device
-        value = device.get("isOnline", device.get("online"))
-        normalized = str(value).strip().lower()
-        if normalized in {"1", "true", "online", "on"}:
-            return True
-        if normalized in {"0", "false", "offline", "off"}:
-            return False
-        return None
+        return cloud_connectivity_on(
+            self.device, profile_kind(self.device), self.status
+        )
 
 
 class TCLPropertyBinarySensor(TCLPropertyEntity, BinarySensorEntity):

@@ -11,6 +11,7 @@ import math
 from dataclasses import dataclass
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
+from collections.abc import Mapping
 from typing import Any
 
 from .model import (
@@ -41,6 +42,13 @@ PROFILES = json.loads(
     Path(__file__).with_name("capability_profiles.json").read_text(encoding="utf-8")
 )
 BLOCKED = Capability()
+
+
+def profile_kind(device: Mapping[str, Any]) -> str | None:
+    """Reviewed product kind, such as lock or air_conditioner."""
+    product = str(device.get("productKey") or "")
+    kind = PROFILES.get(product, {}).get("kind")
+    return str(kind) if kind else None
 
 
 def reviewed_property_name(device: dict, model: dict, prop: dict, language: str) -> str:

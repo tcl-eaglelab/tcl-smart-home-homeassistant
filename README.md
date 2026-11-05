@@ -3,6 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![HA Integration](https://img.shields.io/badge/Home%20Assistant-Custom%20Integration-blue.svg)](https://www.home-assistant.io/)
 [![Version](https://img.shields.io/badge/version-1.0.0-green.svg)](CHANGELOG.md)
+[![Open your Home Assistant instance and start setting up a new integration.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=tcl_smart_home)
 
 A single Home Assistant integration for TCL accounts in **mainland China** and **overseas regions**. The integration keeps one domain (`tcl_smart_home`) while selecting the account-center, IoT protocol, QR authorization, request headers, and timezone from the country chosen during setup.
 
@@ -102,6 +103,23 @@ The default polling interval is **30 seconds**. Change it from **Settings → De
 - **No remote unlock**: Door lock controls are limited to settings; `openDoor` is not implemented
 
 See [the security policy](SECURITY.md) for the release boundary.
+
+## Actions
+
+`tcl_smart_home.set_property` writes one reviewed property. It requires a user context and an administrator. Automations should use the entity actions instead.
+
+| Field | Required | Meaning |
+| --- | --- | --- |
+| `device_id` | yes | TCL `deviceId` |
+| `property` | yes | Approved property identifier. Engineering and lock-unlock commands are rejected |
+| `value` | yes | `0` or `1` for a boolean, a number for a range, or the option code for an enum |
+
+## Removal
+
+1. Open **Settings → Devices & services → TCL Smart Home**, then delete the integration entry.
+2. Remove the `tcl_smart_home` block from `configuration.yaml` and the matching keys from `secrets.yaml`.
+3. For a manual install, delete `custom_components/tcl_smart_home`.
+4. Restart Home Assistant when it asks. An update or removal of an already loaded integration needs a restart.
 
 ## Documentation
 

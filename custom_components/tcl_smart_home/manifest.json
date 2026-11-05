@@ -1,6 +1,11 @@
 {
   "domain": "tcl_smart_home",
   "name": "TCL Smart Home",
+  "categories": [
+    "climate.heat_pumps_air_conditioning",
+    "appliances_cleaning",
+    "security_safety.locks_access"
+  ],
   "codeowners": [
     "@xuhuatao"
   ],

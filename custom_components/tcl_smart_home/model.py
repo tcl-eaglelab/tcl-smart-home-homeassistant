@@ -147,6 +147,188 @@ def is_washing_machine(device: Mapping[str, Any]) -> bool:
     )
 
 
+LOCK_TYPE_LONG_CONNECTION = 1
+POWER_SAVE_MODE_OFF = "0"
+
+
+def is_door_lock(
+    device: Mapping[str, Any], profile_kind: str | None = None
+) -> bool:
+    """Door locks are category SLK, or a reviewed lock product."""
+    if profile_kind == "lock":
+        return True
+    tokens = _category_tokens(device_category(device))
+    if "slk" in tokens or "doorlock" in tokens:
+        return True
+    return "\u95e8\u9501" in device_category(device)
+
+
+def is_slk_category(device: Mapping[str, Any]) -> bool:
+    return "slk" in _category_tokens(device_category(device))
+
+
+def shadow_reports_online(value: Any) -> bool:
+    """Shadow/MQTT online: bool true, non-zero number, or 1/true/online."""
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, (int, float)):
+        return value != 0
+    return str(value).strip().lower() in {"1", "true", "online", "on"}
+
+
+def tcp_keepalive_online(value: Any) -> bool:
+    """Wake-up session is online only for the exact keepalive value."""
+    return str(value or "").strip() == "tcpOnline"
+
+
+def _coerce_lock_type(value: Any) -> int | None:
+    if value is None or value == "":
+        return None
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def power_save_mode_value(
+    device: Mapping[str, Any], status: Mapping[str, Any] | None = None
+) -> Any:
+    """Read powerSaveMode from status first, then device identifiers."""
+    if isinstance(status, Mapping) and "powerSaveMode" in status:
+        return status.get("powerSaveMode")
+    if "powerSaveMode" in device:
+        return device.get("powerSaveMode")
+    identifiers = device.get("identifiers")
+    if isinstance(identifiers, list):
+        for item in identifiers:
+            if (
+                isinstance(item, Mapping)
+                and item.get("identifier") == "powerSaveMode"
+            ):
+                return item.get("value")
+    return None
+
+
+def is_long_link(lock_type: Any, power_save_mode: Any) -> bool:
+    """Long-link display mode: lockType=1 and power save off/missing."""
+    if _coerce_lock_type(lock_type) != LOCK_TYPE_LONG_CONNECTION:
+        return False
+    if power_save_mode is None:
+        return True
+    return str(power_save_mode) == POWER_SAVE_MODE_OFF
+
+
+def is_lock_short_link(
+    device: Mapping[str, Any],
+    *,
+    lock_type: Any = None,
+    power_save_mode: Any = None,
+) -> bool:
+    """Short-link locks, including long-link products with power save on."""
+    if not is_slk_category(device):
+        return False
+    resolved_type = (
+        lock_type if lock_type is not None else device.get("lockType")
+    )
+    return not is_long_link(resolved_type, power_save_mode)
+
+
+def lock_needs_keepalive_lookup(
+    device: Mapping[str, Any], *, lock_type: Any = None
+) -> bool:
+    """Fetch TCP status only when it can still change a shadow-offline long-link lock."""
+    if shadow_reports_online(device.get("isOnline", device.get("online"))):
+        return False
+    resolved_type = lock_type if lock_type is not None else device.get("lockType")
+    return not is_lock_short_link(
+        device,
+        lock_type=resolved_type,
+        power_save_mode=power_save_mode_value(device),
+    )
+
+
+def _lock_connectivity_unknown(
+    device: Mapping[str, Any], status: Mapping[str, Any] | None
+) -> bool:
+    return (
+        device.get("isOnline", device.get("online")) is None
+        and device.get("tcpStatus") is None
+        and device.get("lockType") is None
+        and power_save_mode_value(device, status) is None
+        and not is_slk_category(device)
+    )
+
+
+def lock_show_online(
+    device: Mapping[str, Any],
+    *,
+    status: Mapping[str, Any] | None = None,
+    lock_type: Any = None,
+) -> bool:
+    """App home formula: shadow OR keepalive OR short-link SLK."""
+    shadow = device.get("isOnline", device.get("online"))
+    if shadow_reports_online(shadow):
+        return True
+    if tcp_keepalive_online(device.get("tcpStatus")):
+        return True
+    resolved_type = (
+        lock_type if lock_type is not None else device.get("lockType")
+    )
+    return is_lock_short_link(
+        device,
+        lock_type=resolved_type,
+        power_save_mode=power_save_mode_value(device, status),
+    )
+
+
+def device_is_available(
+    device: Mapping[str, Any],
+    profile_kind: str | None = None,
+    status: Mapping[str, Any] | None = None,
+) -> bool:
+    """Locks follow the App show-online rule; other devices use shadow only."""
+    if is_door_lock(device, profile_kind):
+        return lock_show_online(device, status=status)
+    online = device.get("isOnline", device.get("online", "1"))
+    return str(online).lower() in ("1", "true", "online", "on")
+
+
+def cloud_connectivity_on(
+    device: Mapping[str, Any],
+    profile_kind: str | None = None,
+    status: Mapping[str, Any] | None = None,
+) -> bool | None:
+    """Connectivity sensor. Locks use the App show-online rule."""
+    if is_door_lock(device, profile_kind):
+        if _lock_connectivity_unknown(device, status):
+            return None
+        return lock_show_online(device, status=status)
+    value = device.get("isOnline", device.get("online"))
+    normalized = str(value).strip().lower()
+    if normalized in {"1", "true", "online", "on"}:
+        return True
+    if normalized in {"0", "false", "offline", "off"}:
+        return False
+    return None
+
+
+def merge_lock_online(
+    device: Mapping[str, Any], payload: Mapping[str, Any] | None
+) -> dict[str, Any]:
+    """Copy shadow and keepalive fields from the lock online response."""
+    merged = dict(device)
+    data = payload if isinstance(payload, Mapping) else {}
+    if "isOnline" not in data and "tcpStatus" not in data:
+        nested = data.get("data")
+        if isinstance(nested, Mapping):
+            data = nested
+    if data.get("isOnline") is not None:
+        merged["isOnline"] = data.get("isOnline")
+    if data.get("tcpStatus") is not None:
+        merged["tcpStatus"] = data.get("tcpStatus")
+    return merged
+
+
 def is_enum_type(prop: Mapping[str, Any]) -> bool:
     return property_type(prop) in ("enum", "enumeration")
 

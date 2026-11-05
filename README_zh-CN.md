@@ -3,6 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![HA Integration](https://img.shields.io/badge/Home%20Assistant-Custom%20Integration-blue.svg)](https://www.home-assistant.io/)
 [![Version](https://img.shields.io/badge/version-1.0.0-green.svg)](CHANGELOG.md)
+[![在 Home Assistant 中开始配置此集成。](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=tcl_smart_home)
 
 一个同时支持**中国大陆**和**海外** TCL 账号的 Home Assistant 集成。统一域名为 `tcl_smart_home`，根据用户选择的国家自动匹配账号中心、IoT 协议、扫码方式、请求头和时区。
 
@@ -102,6 +103,23 @@ tcl_ha_overseas_client_secret: "你的海外应用密钥"
 - **无远程开门**：门锁仅开放设置，`openDoor` 未接入
 
 详见[安全策略](SECURITY.md)。
+
+## 动作
+
+`tcl_smart_home.set_property` 写入一个已审核属性。调用必须带用户身份，并且是管理员。自动化应使用实体自己的动作。
+
+| 字段 | 必填 | 含义 |
+| --- | --- | --- |
+| `device_id` | 是 | TCL `deviceId` |
+| `property` | 是 | 已审核的属性标识。工程属性和开锁指令会被拒绝 |
+| `value` | 是 | 布尔用 `0` 或 `1`，范围用数字，枚举用选项代码 |
+
+## 移除
+
+1. 打开 **设置 → 设备与服务 → TCL Smart Home**，删除该集成条目。
+2. 从 `configuration.yaml` 去掉 `tcl_smart_home` 配置，并从 `secrets.yaml` 去掉对应密钥。
+3. 手动安装的，删除 `custom_components/tcl_smart_home`。
+4. Home Assistant 提示重启时再重启。已经加载过的集成，更新或删除后需要重启。
 
 ## 文档
 

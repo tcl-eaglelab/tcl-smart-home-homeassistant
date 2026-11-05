@@ -14,6 +14,7 @@ from .model import (
 )
 
 TEMPERATURE_UNITS = ("\u00b0C", "C", "celsius", "\u6444\u6c0f\u5ea6")
+PARALLEL_UPDATES = 0
 
 
 async def async_setup_entry(hass, entry, async_add_entities) -> None:

@@ -13,6 +13,10 @@ from .api_common import (
     is_success,
     is_token_error,
     jwt_expiry_ms,
+    jwt_user_id,
+    lock_online_headers,
+    parse_lock_types,
+    response_succeeded,
     safe_qr_url,
 )
 from .const import (
@@ -134,6 +138,42 @@ class DomesticApi(TCLCloudClient):
             raise TCLApiError("Device list response is not a list")
         return [dict(device) for device in data if isinstance(device, Mapping)]
 
+    async def async_get_lock_online(
+        self,
+        device_id: str,
+        *,
+        product_key: str = "",
+        user_id: str = "",
+    ) -> dict[str, Any]:
+        """Shadow online plus TCP keepalive for one door lock."""
+        query = urlencode({"deviceId": device_id})
+        data = await self._request(
+            "GET",
+            f"{IOT_URL}/v1/slk/device/online/status?{query}",
+            headers=lock_online_headers(
+                device_id, product_key=product_key, user_id=user_id
+            ),
+        )
+        return dict(data) if isinstance(data, Mapping) else {}
+
+    async def async_get_lock_types(
+        self, product_keys: list[str], *, user_id: str = ""
+    ) -> dict[str, int]:
+        """Map productKey to lockType: 0 short-link, 1 long-link."""
+        keys = [str(key) for key in product_keys if str(key)]
+        if not keys:
+            return {}
+        resolved_user = user_id or jwt_user_id(self.access_token)
+        if not resolved_user:
+            raise TCLApiError("Missing userId for lock type lookup")
+        data = await self._request(
+            "POST",
+            f"{IOT_URL}/v1/slk/settings/lock/type",
+            payload={"userId": resolved_user, "pks": keys},
+            accept_codes=(0, "0"),
+        )
+        return parse_lock_types(data)
+
     async def async_get_status(self, device_id: str) -> dict[str, Any]:
         data = await self._request(
             "POST",
@@ -172,18 +212,23 @@ class DomesticApi(TCLCloudClient):
         request_url: str,
         *,
         payload: Mapping[str, Any] | None = None,
+        headers: Mapping[str, str] | None = None,
+        accept_codes: tuple[Any, ...] = (),
         retry: bool = True,
     ) -> Any:
         await self._ensure_token()
+        request_headers = {
+            "accessToken": self.access_token,
+            "Content-Type": "application/json",
+            "t-store-uuid": STORE_UUID,
+        }
+        if headers:
+            request_headers.update(headers)
         response = await self._raw_request(
             method,
             request_url,
             payload=payload,
-            headers={
-                "accessToken": self.access_token,
-                "Content-Type": "application/json",
-                "t-store-uuid": STORE_UUID,
-            },
+            headers=request_headers,
             authenticated=True,
         )
         if is_token_error(response) and retry:
@@ -195,9 +240,11 @@ class DomesticApi(TCLCloudClient):
                 method,
                 request_url,
                 payload=payload,
+                headers=headers,
+                accept_codes=accept_codes,
                 retry=False,
             )
-        if not is_success(response):
+        if not response_succeeded(response, accept_codes):
             raise TCLApiError(
                 "TCL API request failed",
             )
