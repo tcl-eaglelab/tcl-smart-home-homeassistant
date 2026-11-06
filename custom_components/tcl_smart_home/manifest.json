@@ -10,14 +10,14 @@
     "@xuhuatao"
   ],
   "config_flow": true,
+  "dependencies": [
+    "frontend",
+    "http"
+  ],
   "documentation": "https://github.com/tcl-eaglelab/tcl-smart-home-homeassistant",
   "integration_type": "hub",
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/tcl-eaglelab/tcl-smart-home-homeassistant/issues",
   "requirements": [],
-  "version": "1.0.0",
-  "dependencies": [
-    "frontend",
-    "http"
-  ]
+  "version": "1.0.0"
 }

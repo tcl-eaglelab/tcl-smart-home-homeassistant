@@ -475,6 +475,19 @@ def property_translation_key(prop: Mapping[str, Any]) -> str | None:
     return PROPERTY_TRANSLATION_KEYS.get(property_identifier(prop).lower())
 
 
+def enum_command_code(raw: Any) -> Any:
+    """Send plain numeric enum codes as numbers. Keep codes such as 007 as text."""
+    if isinstance(raw, bool):
+        return int(raw)
+    if isinstance(raw, int):
+        return raw
+    if isinstance(raw, str):
+        text = raw.strip()
+        if text.isdigit() and not (len(text) > 1 and text.startswith("0")):
+            return int(text)
+    return raw
+
+
 def enum_options(prop: Mapping[str, Any]) -> list[tuple[Any, str]]:
     specs = property_specs(prop)
     values: list[tuple[Any, str]] = []

@@ -102,7 +102,7 @@ The default polling interval is **30 seconds**. Change it from **Settings → De
 - **Redacted diagnostics**: Only structural counts and boolean status are exported
 - **No remote unlock**: Door lock controls are limited to settings; `openDoor` is not implemented
 
-See [the security policy](SECURITY.md) for the release boundary.
+See [the security policy](SECURITY.md) for the release boundary and [the privacy notice](PRIVACY.md) for what personal data is processed.
 
 ## Actions
 
@@ -123,6 +123,7 @@ See [the security policy](SECURITY.md) for the release boundary.
 
 ## Documentation
 
+- [Privacy notice](PRIVACY.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Changelog](CHANGELOG.md)
 - [Contributing](CONTRIBUTING.md)

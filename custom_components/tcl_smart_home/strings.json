@@ -50,7 +50,7 @@
       },
       "authorize_unavailable": {
         "title": "Connect TCL Smart Home",
-        "description": "**The QR code could not be loaded. Click Refresh QR code to try again.**\n\n",
+        "description": "**The QR code could not be loaded. Click Refresh QR code to try again.**",
         "menu_options": {
           "check_authorization": "I have scanned — continue",
           "refresh_qr": "Refresh QR code"

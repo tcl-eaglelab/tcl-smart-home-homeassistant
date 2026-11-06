@@ -1,4 +1,388 @@
 {
+"1112015063N": {
+    "kind": "air_conditioner",
+    "properties": {
+      "powerSwitch": {
+        "tier": "primary",
+        "writable": true,
+        "schema": {
+          "accessMode": "rw",
+          "dataType": {
+            "type": "bool",
+            "mappingType": "bool",
+            "specs": {
+              "0": "关闭",
+              "1": "开启"
+            }
+          }
+        },
+        "names": {
+          "zh-Hans": "电源",
+          "en": "Power"
+        },
+        "composite": "power"
+      },
+      "workMode": {
+        "tier": "primary",
+        "writable": true,
+        "schema": {
+          "accessMode": "rw",
+          "dataType": {
+            "type": "enum",
+            "mappingType": "enum",
+            "specs": {
+              "0": "自动",
+              "1": "制冷",
+              "2": "除湿",
+              "3": "送风",
+              "4": "制热"
+            }
+          }
+        },
+        "names": {
+          "zh-Hans": "工作模式",
+          "en": "Operating mode"
+        },
+        "composite": "mode"
+      },
+      "targetTemperature": {
+        "tier": "primary",
+        "writable": true,
+        "schema": {
+          "accessMode": "rw",
+          "dataType": {
+            "type": "double",
+            "mappingType": "int32_100",
+            "specs": {
+              "min": "16",
+              "max": "31",
+              "step": "0.5",
+              "unit": "°C",
+              "unitName": "摄氏度"
+            }
+          }
+        },
+        "names": {
+          "zh-Hans": "目标温度",
+          "en": "Target temperature"
+        },
+        "composite": "target"
+      },
+      "currentTemperature": {
+        "tier": "primary",
+        "writable": false,
+        "schema": {
+          "accessMode": "r",
+          "dataType": {
+            "type": "double",
+            "mappingType": "int32_100",
+            "specs": {
+              "max": "100",
+              "min": "-100",
+              "step": "0.1",
+              "unit": "°C",
+              "unitName": "摄氏度"
+            }
+          }
+        }
+      },
+      "windSpeed7Gear": {
+        "tier": "primary",
+        "writable": false,
+        "schema": {
+          "accessMode": "r",
+          "dataType": {
+            "type": "enum",
+            "mappingType": "enum",
+            "specs": {
+              "0": "停止",
+              "1": "静音",
+              "2": "低速风",
+              "3": "中低速风",
+              "4": "中速风",
+              "5": "中高速风",
+              "6": "高速风",
+              "7": "强劲风"
+            }
+          }
+        }
+      },
+      "windSpeedPercentage": {
+        "tier": "primary",
+        "writable": true,
+        "schema": {
+          "accessMode": "rw",
+          "dataType": {
+            "type": "int",
+            "mappingType": "int",
+            "specs": {
+              "max": "100",
+              "min": "0",
+              "step": "1",
+              "unit": "%",
+              "unitName": "百分比"
+            }
+          }
+        },
+        "names": {
+          "zh-Hans": "风速百分比",
+          "en": "Fan speed percentage"
+        }
+      },
+      "windSpeedAutoSwitch": {
+        "tier": "primary",
+        "writable": true,
+        "schema": {
+          "accessMode": "rw",
+          "dataType": {
+            "type": "bool",
+            "mappingType": "bool",
+            "specs": {
+              "0": "手动",
+              "1": "自动"
+            }
+          }
+        },
+        "names": {
+          "zh-Hans": "自动风速",
+          "en": "Automatic fan speed"
+        }
+      },
+      "verticalWind": {
+        "tier": "primary",
+        "writable": true,
+        "schema": {
+          "accessMode": "rw",
+          "dataType": {
+            "type": "enum",
+            "mappingType": "enum",
+            "specs": {
+              "0": "关闭",
+              "1": "开启"
+            }
+          }
+        },
+        "names": {
+          "zh-Hans": "上下扫风",
+          "en": "Vertical swing"
+        }
+      },
+      "horizontalWind": {
+        "tier": "primary",
+        "writable": true,
+        "schema": {
+          "accessMode": "rw",
+          "dataType": {
+            "type": "enum",
+            "mappingType": "enum",
+            "specs": {
+              "0": "关闭",
+              "1": "开启"
+            }
+          }
+        },
+        "names": {
+          "zh-Hans": "左右扫风",
+          "en": "Horizontal swing"
+        }
+      },
+      "screen": {
+        "tier": "advanced",
+        "writable": true,
+        "schema": {
+          "accessMode": "rw",
+          "dataType": {
+            "type": "bool",
+            "mappingType": "bool",
+            "specs": {
+              "0": "关闭",
+              "1": "开启"
+            }
+          }
+        }
+      },
+      "beepSwitch": {
+        "tier": "advanced",
+        "writable": true,
+        "schema": {
+          "accessMode": "rw",
+          "dataType": {
+            "type": "bool",
+            "mappingType": "bool",
+            "specs": {
+              "0": "关闭",
+              "1": "开启"
+            }
+          }
+        }
+      },
+      "sleep": {
+        "tier": "primary",
+        "writable": true,
+        "schema": {
+          "accessMode": "rw",
+          "dataType": {
+            "type": "enum",
+            "mappingType": "enum",
+            "specs": {
+              "0": "关闭",
+              "1": "标准模式"
+            }
+          }
+        },
+        "names": {
+          "zh-Hans": "睡眠模式",
+          "en": "Sleep mode"
+        }
+      },
+      "AIECOSwitch": {
+        "tier": "advanced",
+        "writable": true,
+        "schema": {
+          "accessMode": "rw",
+          "dataType": {
+            "type": "bool",
+            "mappingType": "bool",
+            "specs": {
+              "0": "关闭",
+              "1": "开启"
+            }
+          }
+        }
+      },
+      "antiDirectBlow": {
+        "tier": "advanced",
+        "writable": true,
+        "schema": {
+          "accessMode": "rw",
+          "dataType": {
+            "type": "bool",
+            "mappingType": "bool",
+            "specs": {
+              "0": "关闭",
+              "1": "开启"
+            }
+          }
+        }
+      },
+      "verticalDirection": {
+        "tier": "advanced",
+        "writable": true,
+        "schema": {
+          "accessMode": "rw",
+          "dataType": {
+            "type": "enum",
+            "mappingType": "enum",
+            "specs": {
+              "1": "上下送风",
+              "2": "上送风",
+              "3": "下送风",
+              "8": "停摆风",
+              "9": "上定格",
+              "10": "偏上定格",
+              "11": "上下中定格",
+              "12": "偏下定格",
+              "13": "下定格"
+            }
+          }
+        }
+      },
+      "horizontalDirection": {
+        "tier": "advanced",
+        "writable": true,
+        "schema": {
+          "accessMode": "rw",
+          "dataType": {
+            "type": "enum",
+            "mappingType": "enum",
+            "specs": {
+              "1": "左右送风",
+              "2": "左送风",
+              "3": "中送风",
+              "4": "右送风",
+              "8": "停摆风",
+              "9": "左定格",
+              "10": "偏左定格",
+              "11": "中定格",
+              "12": "偏右定格",
+              "13": "右定格"
+            }
+          }
+        }
+      },
+      "selfCleanStatus": {
+        "tier": "advanced",
+        "writable": false,
+        "schema": {
+          "accessMode": "rw",
+          "dataType": {
+            "type": "enum",
+            "mappingType": "enum",
+            "specs": {
+              "0": "凝露",
+              "1": "结霜",
+              "2": "除霜",
+              "3": "风干",
+              "4": "失败",
+              "5": "成功",
+              "6": "未启动"
+            }
+          }
+        }
+      },
+      "selfCleanPercentage": {
+        "tier": "advanced",
+        "writable": false,
+        "schema": {
+          "accessMode": "r",
+          "dataType": {
+            "type": "int",
+            "mappingType": "int",
+            "specs": {
+              "max": "100",
+              "min": "0",
+              "step": "1",
+              "unit": "%",
+              "unitName": "百分比"
+            }
+          }
+        }
+      },
+      "filterBlockStatus": {
+        "tier": "advanced",
+        "writable": false,
+        "schema": {
+          "accessMode": "r",
+          "dataType": {
+            "type": "bool",
+            "mappingType": "bool",
+            "specs": {
+              "0": "未脏堵",
+              "1": "脏堵"
+            }
+          }
+        }
+      },
+      "externalUnitTemperature": {
+        "tier": "diagnostic",
+        "writable": false,
+        "schema": {
+          "accessMode": "r",
+          "dataType": {
+            "type": "double",
+            "mappingType": "int32_100",
+            "specs": {
+              "max": "250",
+              "min": "-50",
+              "step": "1",
+              "unit": "°C",
+              "unitName": "度"
+            }
+          }
+        }
+      }
+    }
+  },
   "1112017156N": {
     "kind": "air_conditioner",
     "properties": {
@@ -679,6 +1063,165 @@
         "names": {
           "zh-Hans": "逗留提醒时间档位",
           "en": "Loitering alert delay level"
+        }
+      },
+      "electronicLock": {
+        "tier": "primary",
+        "writable": true,
+        "schema": {
+          "accessMode": "rw",
+          "dataType": {
+            "type": "bool",
+            "mappingType": "bool",
+            "specs": {
+              "0": "关闭",
+              "1": "打开"
+            }
+          }
+        },
+        "names": {
+          "zh-Hans": "电子反锁",
+          "en": "Electronic deadlock"
+        }
+      }
+    }
+  },
+"jglOPl83x2BzQ3NX": {
+    "kind": "lock",
+    "properties": {
+      "doorStatus": {
+        "tier": "primary",
+        "writable": false,
+        "schema": {
+          "accessMode": "r",
+          "dataType": {
+            "type": "bool",
+            "mappingType": "bool",
+            "specs": {
+              "0": "门关闭",
+              "1": "门打开"
+            }
+          }
+        }
+      },
+      "lithiumBatteryCapacity": {
+        "tier": "primary",
+        "writable": false,
+        "schema": {
+          "accessMode": "r",
+          "dataType": {
+            "type": "int",
+            "mappingType": "uint8_t",
+            "specs": {
+              "unit": "NA",
+              "min": "0",
+              "unitName": "NA",
+              "max": "100",
+              "step": "1"
+            }
+          }
+        }
+      },
+      "errorCode": {
+        "tier": "diagnostic",
+        "writable": false,
+        "schema": {
+          "accessMode": "r",
+          "dataType": {
+            "type": "array",
+            "mappingType": "array-enum",
+            "specs": {
+              "item": {
+                "specs": {
+                  "1": "E0 指纹模块通信异常",
+                  "2": "E1 指纹频繁唤醒",
+                  "3": "F0 触摸通信异常",
+                  "4": "F1 触摸频繁唤醒",
+                  "5": "F2 触摸唤醒未检测有按键按下",
+                  "6": "H0 卡片唤醒未检测有卡片",
+                  "7": "H1 刷卡通信异常",
+                  "8": "M0 人脸模块通信异常",
+                  "9": "M1 掌静脉模块通信异常",
+                  "10": "L0 雷达频繁唤醒",
+                  "11": "L1 雷达通信异常",
+                  "12": "B0 指静脉通信异常",
+                  "13": "B1 指静脉频繁唤醒",
+                  "14": "A0 前后锁通信异常",
+                  "15": "A1 视频传输异常",
+                  "16": "C0 电机异常",
+                  "17": "C1 锁体斜舌检测异常",
+                  "18": "C2 锁体三角舌检测异常",
+                  "19": "C3 锁体主舌检测异常",
+                  "20": "K0 Flash芯片读写异常",
+                  "21": "K1 MCU片内Flash读写异常",
+                  "22": "W0 门锁异常重启"
+                },
+                "type": "enum"
+              },
+              "size": "22"
+            }
+          }
+        }
+      },
+      "voiceVolume": {
+        "tier": "primary",
+        "writable": true,
+        "schema": {
+          "accessMode": "rw",
+          "dataType": {
+            "type": "enum",
+            "mappingType": "enum",
+            "specs": {
+              "0": "低音量",
+              "1": "中音量",
+              "2": "高音量",
+              "3": "静音音量"
+            }
+          }
+        },
+        "names": {
+          "zh-Hans": "门锁语音音量",
+          "en": "Lock voice volume"
+        }
+      },
+      "volume": {
+        "tier": "primary",
+        "writable": true,
+        "schema": {
+          "accessMode": "rw",
+          "dataType": {
+            "type": "enum",
+            "mappingType": "enum",
+            "specs": {
+              "0": "低音量",
+              "1": "中音量",
+              "2": "高音量",
+              "3": "静音音量"
+            }
+          }
+        },
+        "names": {
+          "zh-Hans": "门铃音量",
+          "en": "Doorbell volume"
+        }
+      },
+      "stayAlarmSwitch": {
+        "tier": "primary",
+        "writable": true,
+        "schema": {
+          "accessMode": "rw",
+          "dataType": {
+            "type": "bool",
+            "mappingType": "bool",
+            "specs": {
+              "0": "关闭",
+              "1": "打开"
+            }
+          }
+        },
+        "names": {
+          "zh-Hans": "逗留提醒",
+          "en": "Loitering alert"
         }
       },
       "electronicLock": {

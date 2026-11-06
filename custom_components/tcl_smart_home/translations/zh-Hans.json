@@ -50,7 +50,7 @@
       },
       "authorize_unavailable": {
         "title": "扫码连接 TCL Smart Home",
-        "description": "**二维码暂时无法加载，请点击“刷新二维码”重试。**\n\n",
+        "description": "**二维码暂时无法加载，请点击“刷新二维码”重试。**",
         "menu_options": {
           "check_authorization": "我已扫码，继续",
           "refresh_qr": "刷新二维码"

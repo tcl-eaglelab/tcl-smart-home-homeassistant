@@ -1,0 +1,38 @@
+TCL Smart Home for Home Assistant
+Copyright (c) 2026 TCL Smart Home for Home Assistant contributors
+
+本仓库自有代码的许可见根目录 LICENSE（MIT）。
+下列组件不随本集成分发，由用户安装的 Home Assistant 提供。本仓库不钉死它们的版本。
+
+homeassistant
+许可：Apache-2.0
+来源：https://github.com/home-assistant/core
+版本：hacs.json 要求不低于 2026.9.4
+说明：集成声明的 frontend、http 属于该宿主。
+引入位置：custom_components/tcl_smart_home/__init__.py
+引入位置：custom_components/tcl_smart_home/binary_sensor.py
+引入位置：custom_components/tcl_smart_home/button.py
+引入位置：custom_components/tcl_smart_home/climate.py
+引入位置：custom_components/tcl_smart_home/config_flow.py
+引入位置：custom_components/tcl_smart_home/coordinator.py
+引入位置：custom_components/tcl_smart_home/entity.py
+引入位置：custom_components/tcl_smart_home/number.py
+引入位置：custom_components/tcl_smart_home/qr_frontend.py
+引入位置：custom_components/tcl_smart_home/registry.py
+引入位置：custom_components/tcl_smart_home/select.py
+引入位置：custom_components/tcl_smart_home/sensor.py
+引入位置：custom_components/tcl_smart_home/switch.py
+
+aiohttp
+许可：Apache-2.0（上游现行许可表达式为 Apache-2.0 AND MIT）
+来源：https://github.com/aio-libs/aiohttp
+引入位置：custom_components/tcl_smart_home/api.py
+引入位置：custom_components/tcl_smart_home/api_common.py
+
+voluptuous
+许可：BSD-3-Clause
+来源：https://github.com/alecthomas/voluptuous
+引入位置：custom_components/tcl_smart_home/__init__.py
+引入位置：custom_components/tcl_smart_home/config_flow.py
+
+Python 标准库和本仓库自写的 custom_components/tcl_smart_home/frontend/qr-dialog.js 不是第三方组件。
