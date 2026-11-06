@@ -15,6 +15,7 @@ from collections.abc import Mapping
 from typing import Any
 
 from .model import (
+    enum_command_code,
     enum_options,
     is_refrigerator,
     is_washing_machine,
@@ -168,7 +169,7 @@ def validate_write(device: dict, model: dict, prop: dict, value: Any) -> Any:
             raise ValueError("This enum value is a reported state, not a command")
         for raw, _ in enum_options(prop):
             if type(raw) in (str, int) and str(raw) == str(value):
-                return raw
+                return enum_command_code(raw)
         raise ValueError("Unknown enum code")
     if kind in ("int", "integer", "float", "double", "number"):
         if type(value) not in (int, float) or (
