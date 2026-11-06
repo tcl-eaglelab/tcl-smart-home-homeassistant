@@ -102,7 +102,7 @@ tcl_ha_overseas_client_secret: "你的海外应用密钥"
 - **诊断脱敏**：仅导出结构计数和布尔状态
 - **无远程开门**：门锁仅开放设置，`openDoor` 未接入
 
-详见[安全策略](SECURITY.md)。
+详见[安全策略](SECURITY.md)和[隐私说明](PRIVACY.md)。
 
 ## 动作
 
@@ -123,6 +123,7 @@ tcl_ha_overseas_client_secret: "你的海外应用密钥"
 
 ## 文档
 
+- [隐私说明](PRIVACY.md)
 - [架构](docs/ARCHITECTURE.md)
 - [更新日志](CHANGELOG.md)
 - [贡献说明](CONTRIBUTING.md)
