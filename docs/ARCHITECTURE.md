@@ -45,7 +45,7 @@ Home Assistant 加载条目时走 `__init__.py` 的 `async_setup_entry`：
 1. 没有国家代码的旧条目视为 CN。
 2. `get_country_route` 解析路由。国家表里没有该代码时，条目保持未就绪。
 3. 轮询间隔低于 15 秒时，改回默认 30 秒。上限 300 秒。
-4. `credentials.application_secret` 按国家取密钥。CN 用 `domestic_app_secret`，其他国家用 `overseas_client_secret`。缺密钥则条目未就绪。
+4. `credentials.application_secret` 按国家取密钥。CN 默认用源码里的公开 `DOMESTIC_APP_SECRET`，`configuration.yaml` 的 `domestic_app_secret` 可以覆盖。其他国家用 `overseas_client_secret`。缺密钥则条目未就绪。
 5. 关闭证书校验的旧条目会被改回开启。
 6. 使用 Home Assistant 的 aiohttp 会话，`verify_ssl=True`。
 

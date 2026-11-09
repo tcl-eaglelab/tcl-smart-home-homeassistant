@@ -25,26 +25,24 @@ Capability discovery is **fail-closed**: only reviewed product/schema pairs can 
 
 - Home Assistant ≥ 2026.9.4
 - A TCL account with devices registered (mainland China or overseas)
-- TCL application credentials obtained through an authorized channel
+### Step 1: Mainland China can scan immediately
 
-### Step 1: Configure credentials
+The mainland China application credential is built in. It is the same public OAuth client credential published with TCL Smart Home CLI. Choose Mainland China and scan with the TCL App. A `domestic_app_secret` entry in `configuration.yaml` overrides the built-in value.
 
-Application secrets are **not bundled**. Add them to your HA configuration before installing:
+Overseas accounts still need `overseas_client_secret` before installation:
 
 `configuration.yaml`:
 ```yaml
 tcl_smart_home:
-  domestic_app_secret: !secret tcl_ha_domestic_app_secret
   overseas_client_secret: !secret tcl_ha_overseas_client_secret
 ```
 
 `secrets.yaml`:
 ```yaml
-tcl_ha_domestic_app_secret: "YOUR_AUTHORIZED_DOMESTIC_SECRET"
 tcl_ha_overseas_client_secret: "YOUR_AUTHORIZED_OVERSEAS_SECRET"
 ```
 
-Configure only the route you use. Never publish `secrets.yaml` or backups. `!secret` separates configuration; it is not encryption.
+Never publish `secrets.yaml` or backups. `!secret` separates configuration; it is not encryption.
 
 ### Step 2: Install the integration
 
@@ -94,7 +92,7 @@ The default polling interval is **30 seconds**. Change it from **Settings → De
 
 ## Security
 
-- **No bundled secrets**: Application credentials are read from local HA YAML only
+- **Domestic credential bundled**: Mainland China uses the public client credential; the overseas credential is still read only from local YAML
 - **TLS enforced**: All requests use HTTPS with certificate verification; redirects are rejected
 - **Domain allowlist**: Only known TCL account and IoT endpoints are contacted
 - **Write validation**: Product + schema match, type/range/step/enum validation before any command

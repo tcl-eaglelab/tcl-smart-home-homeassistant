@@ -25,26 +25,26 @@
 
 - Home Assistant ≥ 2026.9.4
 - 已注册设备的 TCL 账号（国内或海外）
-- 通过授权渠道获取的 TCL 应用凭据
+### 第一步：国内直接扫码
 
-### 第一步：配置凭据
+中国大陆使用的应用密钥已随集成内置，和公开的 TCL Smart Home CLI 是同一把客户端凭据。选择 Mainland China 后直接用 TCL App 扫码，不必再写 `domestic_app_secret`。
 
-安装包**不含应用密钥**。安装前在 HA 配置中设置：
+`configuration.yaml` 里如果写了 `domestic_app_secret`，会覆盖内置值。本机测试用的占位字符串要删掉，否则不会用内置密钥。
+
+海外账号仍要在安装前配置 `overseas_client_secret`：
 
 `configuration.yaml`：
 ```yaml
 tcl_smart_home:
-  domestic_app_secret: !secret tcl_ha_domestic_app_secret
   overseas_client_secret: !secret tcl_ha_overseas_client_secret
 ```
 
 `secrets.yaml`：
 ```yaml
-tcl_ha_domestic_app_secret: "你的国内应用密钥"
 tcl_ha_overseas_client_secret: "你的海外应用密钥"
 ```
 
-只使用一条区域路线时可只配置对应键。不要将 `secrets.yaml` 或备份上传 GitHub。
+不要将 `secrets.yaml` 或备份上传 GitHub。
 
 ### 第二步：安装集成
 
@@ -94,7 +94,7 @@ tcl_ha_overseas_client_secret: "你的海外应用密钥"
 
 ## 安全
 
-- **不含密钥**：应用凭据仅从本机 YAML 读取
+- **国内密钥内置**：中国大陆使用公开客户端凭据；海外密钥仍只从本机 YAML 读取
 - **强制 TLS**：所有请求使用 HTTPS 并校验证书，拒绝重定向
 - **域名白名单**：仅连接已知 TCL 端点
 - **写入校验**：产品+属性结构匹配，类型/范围/步长/枚举校验后才发命令

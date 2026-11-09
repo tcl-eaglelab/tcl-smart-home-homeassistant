@@ -19,6 +19,9 @@ DOMESTIC_IOT_URL = "https://io.zx.tcljd.com"
 DOMESTIC_APP_ID = "23301773132314850"
 DOMESTIC_TENANT_ID = "tcl"
 DOMESTIC_STORE_UUID = "OPENCLAW"
+# Public OAuth client credential, the same value published in tcl-smart-home-cli.
+# It can start QR login only. User data still requires the account owner to scan.
+DOMESTIC_APP_SECRET = "504a9b7062c85d7444e2e60a5cf70775769d14c2eda70cef263719d254359b18"
 
 OVERSEAS_CLIENT_ID = "52109545"
 QR_CODE_SIZE = "400"
