@@ -115,7 +115,11 @@ class OverseasApi(TCLCloudClient):
             response = await self._raw_request(
                 "POST",
                 f"{self.route.auth_url}/refershToken?{query}",
-                headers={"refreshToken": self.refresh_token},
+                headers={
+                    "refreshToken": self.refresh_token,
+                    "Encrypt": "true",
+                    "EncryptVersion": "2.0",
+                },
                 authenticated=False,
             )
             if not is_success(response):
