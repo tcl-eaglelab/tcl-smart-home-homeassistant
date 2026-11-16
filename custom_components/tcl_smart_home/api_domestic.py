@@ -111,9 +111,13 @@ class DomesticApi(TCLCloudClient):
                 }
             )
             response = await self._raw_request(
-                "POST",
+                "GET",
                 f"{AUTH_URL}/auth/auth/refershToken?{query}",
-                headers={"refreshToken": self.refresh_token},
+                headers={
+                    "refreshToken": self.refresh_token,
+                    "Encrypt": "true",
+                    "EncryptVersion": "2.0",
+                },
                 authenticated=False,
             )
             if not is_success(response):
