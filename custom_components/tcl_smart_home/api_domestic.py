@@ -111,7 +111,7 @@ class DomesticApi(TCLCloudClient):
                 }
             )
             response = await self._raw_request(
-                "POST",
+                "GET",
                 f"{AUTH_URL}/auth/auth/refershToken?{query}",
                 headers={
                     "refreshToken": self.refresh_token,
