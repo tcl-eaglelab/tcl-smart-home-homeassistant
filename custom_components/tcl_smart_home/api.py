@@ -14,6 +14,7 @@ from .api_common import (
     TCLCloudClient,
     is_success,
     is_token_error,
+    jwt_claims,
     jwt_expiry_ms,
     jwt_user_id,
     lock_online_headers,
@@ -102,29 +103,30 @@ class OverseasApi(TCLCloudClient):
                 > int(time.time() * 1000) + TOKEN_REFRESH_WINDOW_MS
             ):
                 return
-            if not self.application_secret:
-                raise TCLAuthError("Application credentials are not configured")
             if not self.refresh_token:
                 raise TCLAuthError("Missing refresh token")
-            query = urlencode(
-                {
-                    "clientId": OVERSEAS_CLIENT_ID,
-                    "clientSecret": self.application_secret,
-                }
-            )
+            username = str(jwt_claims(self.access_token).get("username") or "")
+            if not username:
+                raise TCLAuthError("Missing username for token refresh")
+            # Europe account-center shape verified against pa.account.tcl.com:
+            # POST /account/refreshToken?clientId=... with JSON refreshToken+username.
+            query = urlencode({"clientId": OVERSEAS_CLIENT_ID})
             response = await self._raw_request(
-                "GET",
-                f"{self.route.auth_url}/refershToken?{query}",
-                headers={"refreshToken": self.refresh_token},
+                "POST",
+                f"{self.route.auth_url}/account/refreshToken?{query}",
+                headers={"Content-Type": "application/json"},
+                payload={
+                    "refreshToken": self.refresh_token,
+                    "username": username,
+                },
                 authenticated=False,
             )
-            if not is_success(response):
+            if response.get("status") not in (1, "1") and not is_success(response):
                 raise TCLAuthError("Token refresh failed")
-            token_data = response.get("data")
-            if not isinstance(token_data, Mapping):
-                token_data = response
-            access_token = token_data.get("accessToken")
-            refresh_token = token_data.get("refreshToken")
+            access_token = response.get("token") or response.get("accessToken")
+            refresh_token = response.get("refreshtoken") or response.get(
+                "refreshToken"
+            )
             if not access_token:
                 raise TCLAuthError("Refresh response did not contain accessToken")
             self.access_token = str(access_token)
